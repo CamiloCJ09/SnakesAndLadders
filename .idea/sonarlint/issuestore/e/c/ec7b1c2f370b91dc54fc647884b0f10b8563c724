@@ -1,15 +1,20 @@
 
-<
-java:S1068"(Remove this unused "rows" private field.(¶Ûüú
+E
+java:S1068	"*Remove this unused "snakes" private field.(ĞÕ€üÿÿÿÿ
+q
+java:S1450"TRemove the "cells" field and declare it as a local variable in the relevant methods.(×ØÈµ8ŸÂ³“/
+E
+java:S1068"*Remove this unused "laders" private field.(¯ÜúÂüÿÿÿÿ
 D
-java:S1068"0Remove this unused "participants" private field.(ĞëŒı
-B
-java:S1068")Remove this unused "icons" private field.(²Î¾öÿÿÿÿÿ
-D
-java:S1068"+Remove this unused "columns" private field.(™‘ïƒøÿÿÿÿ
-C
-java:S1068"*Remove this unused "laders" private field.(¯ÜúÂüÿÿÿÿ
-C
-java:S1068"*Remove this unused "snakes" private field.(ĞÕ€üÿÿÿÿ
-=
-java:S1068")Remove this unused "cells" private field.(×ØÈµ
+java:S1068")Remove this unused "icons" private field.(²Î¾öÿÿÿÿÿ
+Y
+java:S3972,"7Move this "if" to a new line or add the missing "else".(ë‹‘üÿÿÿÿ8‰”¹“/
+>
+java:S1068"(Remove this unused "rows" private field.(¶Ûüú
+F
+java:S1068
+"0Remove this unused "participants" private field.(ĞëŒı
+F
+java:S1068"+Remove this unused "columns" private field.(™‘ïƒøÿÿÿÿ
+c
+java:S2259."FA "NullPointerException" could be thrown; "nextCell" is nullable here.(÷ÎÔˆ8éîÅ“/
