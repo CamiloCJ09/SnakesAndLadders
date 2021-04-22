@@ -1,45 +1,48 @@
 package model;
 
+import exceptions.IntListIndexOutOfBounds;
+
 public class Table {
 
     private Cell cells;
     private int rows;
     private int columns;
-    private int laders;
+    private int ladders;
     private int snakes;
     //Revisar
     private Snake snake;
-    private ExistantNum firstNum;
+    private IntList snakeList;
+    private IntList ladderList;
 
     private int participants;
     private String icons;
-    private String posLadders;
-    private String posSnakes;
     private int totalCells;
 
-    public Table(int rows, int columns, int laders, int snakes, int participants){
+    public Table(int rows, int columns, int ladders, int snakes, int participants) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
-        this.laders = laders;
+        this.ladders = ladders;
         this.snakes = snakes;
         this.participants = participants;
         this.totalCells = rows*columns;
-        this.posSnakes = "";
-        this.posLadders = "";
-        generateSnakes();
+        this.snakeList = new IntList();
+        this.ladderList = new IntList();
+        setupSnakes(snakes);
+        setupLadders(ladders);
 
         //TODO recursive method to fill icons
     }
 
-    public Table(int rows, int columns, int laders, int snakes, String icons){
+    public Table(int rows, int columns, int ladders, int snakes, String icons) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
-        this.laders = laders;
+        this.ladders = ladders;
         this.snakes = snakes;
         this.icons = icons;
         this.totalCells = rows*columns;
         this.participants = icons.length();
-        generateSnakes();
+        setupSnakes(snakes);
+        setupLadders(ladders);
     }
 
     //TODO recursive method to create and fill cells
@@ -49,6 +52,38 @@ public class Table {
         //System.out.println("Cell number"+cells.getNumber());
         createTable(totalCells, null);
 
+    }
+
+    private void setupSnakes(int snakes) throws IntListIndexOutOfBounds {
+        if(snakes == 1){
+            int snake = (int)(1+(Math.random()*(totalCells-2)));
+            if(snakeList.contains(snake)){
+                System.out.println("papi, si sirvo");
+            }
+            snakeList.add(snake);
+            System.out.println("Snake: "+ snake);
+        } else{
+            int snake = (int)(1+(Math.random()*(totalCells-2)));
+            if(snakeList.contains(snake)){
+                System.out.println("papi, si sirvo");
+            }
+            snakeList.add(snake);
+            System.out.println("Snake: "+ snake);
+            setupSnakes(snakes-1);
+        }
+    }
+
+    private void setupLadders(int ladders){
+        if(ladders == 1){
+            int ladder = (int)(1+(Math.random()*(totalCells-2)));
+            snakeList.add(ladder);
+            System.out.println("Ladder: "+ ladder);
+        } else{
+            int ladder = (int)(1+(Math.random()*(totalCells-2)));
+            snakeList.add(ladder);
+            System.out.println("Ladder: "+ ladder);
+            setupLadders(ladders-1);
+        }
     }
     /*
     public void createTable(int totalCells, Cell nextCell, int total){
@@ -82,9 +117,11 @@ public class Table {
         }
     }
 
+    /*
     public void existingNum(){
 
     }
+
     public void generateSnakes(){
         int piso = columns+1;
         int techo = totalCells-1;
@@ -128,6 +165,7 @@ public class Table {
             generateSnakes(snakes-1, tempSnake, num);
         }
     }
+     */
 
     public void addSnakes(int snakes){
 
