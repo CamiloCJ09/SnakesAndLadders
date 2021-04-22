@@ -56,12 +56,36 @@ public class IntList {
     private IntCell getCell(int index){
         if(index == 0){
             return first;
-        } else{
+        } else if(index == (size - 1)){
+            return last;
+        }else{
             return getCell(index-1).getNext();
         }
     }
 
     public int getSize() {
         return size;
+    }
+
+    public boolean contains(int number) throws IntListIndexOutOfBounds {
+        return contains(number, size-1);
+    }
+
+    private boolean contains(int number, int size) throws IntListIndexOutOfBounds {
+        boolean is = false;
+        if(size == 0){
+            if(number == get(0)){
+                is = true;
+            } else{
+                is = false;
+            }
+        } else{
+            if(number == get(size)){
+                is = true;
+            } else{
+                return contains(number, size-1);
+            }
+        }
+        return is;
     }
 }
