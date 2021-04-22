@@ -11,3 +11,5 @@ C
 src/model/Cell.java,8\e\8e94542abc4495bd8fbf68c7b899506011adec97
 I
 test/model/TableTest.java,e\a\ea9e3dbe149a9939a8d3818f9f5e7acda9021847
+D
+src/model/Snake.java,1\e\1e911dc2a161958e89fa3f86a169355b2ace22dc

@@ -7,6 +7,10 @@ public class Table {
     private int columns;
     private int laders;
     private int snakes;
+    //Revisar
+    private Snake snake;
+    private ExistantNum firstNum;
+
     private int participants;
     private String icons;
     private String posLadders;
@@ -22,7 +26,7 @@ public class Table {
         this.totalCells = rows*columns;
         this.posSnakes = "";
         this.posLadders = "";
-        generateSnakes(snakes);
+        generateSnakes();
 
         //TODO recursive method to fill icons
     }
@@ -35,14 +39,14 @@ public class Table {
         this.icons = icons;
         this.totalCells = rows*columns;
         this.participants = icons.length();
-        generateSnakes(snakes);
+        generateSnakes();
     }
 
     //TODO recursive method to create and fill cells
     public void createTable(){
         cells = new Cell(totalCells);
 
-        System.out.println("Cell number"+cells.getNumber());
+        //System.out.println("Cell number"+cells.getNumber());
         createTable(totalCells, null);
 
     }
@@ -78,17 +82,53 @@ public class Table {
         }
     }
 
-    public void generateSnakes(int snakes){
-        //Snakes
-        if(snakes>0){
-            int value = (int)((Math.random()*totalCells)-1);
-            System.out.println(value);
-            posSnakes += value+",";
-            System.out.println("posSnakes = " + posSnakes);
-            generateSnakes(snakes-1);
-        }
+    public void existingNum(){
 
     }
+    public void generateSnakes(){
+        int piso = columns+1;
+        int techo = totalCells-1;
+
+        int num = (int)(Math.random()*((techo+1)-(piso)))+piso;
+        posSnakes += num+",";
+
+        //System.out.println("First time: "+num);
+        snake = new Snake(num, "Snake "+snakes);
+
+        num = (int)(Math.random()*((techo+1)-(piso)))+piso;
+        if(posSnakes.contains(String.valueOf(num))){
+            num = (int)(Math.random()*((techo+1)-(piso)))+piso;
+        }
+        posSnakes += num+",";
+
+        //System.out.println("Second time: "+num);
+
+        generateSnakes(snakes-1, snake, num);
+    }
+    public void generateSnakes(int snakes, Snake currentSnake, int numValue){
+        //Snakes
+        if(snakes!=0){
+            //int value = (int)((Math.random()*totalCells)-2);
+            int piso = columns+1;
+            int techo = totalCells-1;
+
+            Snake tempSnake = new Snake(numValue, "Snake "+snakes);
+            currentSnake.setNextSnake(tempSnake);
+
+            System.out.println("current "+ currentSnake.getName()+" " +currentSnake.getNum());
+            System.out.println("temp "+ tempSnake.getName()+" " +tempSnake.getNum());
+
+            int num = (int)(Math.random()*((techo+1)-(piso)))+piso;
+            if(posSnakes.contains(String.valueOf(num))){
+                num = (int)(Math.random()*((techo+1)-(piso)))+piso;
+                posSnakes += num+",";
+            }
+
+
+            generateSnakes(snakes-1, tempSnake, num);
+        }
+    }
+
     public void addSnakes(int snakes){
 
     }
