@@ -68,6 +68,9 @@ public class IntList {
     }
 
     public boolean contains(int number) throws IntListIndexOutOfBounds {
+        if(first == null){
+            return false;
+        }
         return contains(number, size-1);
     }
 
@@ -88,4 +91,18 @@ public class IntList {
         }
         return is;
     }
+
+    public IntList mergeLists(IntList list1) throws IntListIndexOutOfBounds {
+        if(first == null){
+            first = list1.getCell(0);
+        }else{
+           //add(list1.getCell(list1.getSize()-1));
+        }
+        //return ;
+    }
+    /*
+    public Cell mergeList(Cell lastCell){
+        if()
+    }
+    */
 }

@@ -59,6 +59,8 @@ public class Table {
             int snake = (int)(1+(Math.random()*(totalCells-2)));
             if(snakeList.contains(snake)){
                 System.out.println("papi, si sirvo");
+                setupSnakes(snakes);
+                return;
             }
             snakeList.add(snake);
             System.out.println("Snake: "+ snake);
@@ -66,6 +68,8 @@ public class Table {
             int snake = (int)(1+(Math.random()*(totalCells-2)));
             if(snakeList.contains(snake)){
                 System.out.println("papi, si sirvo");
+                setupSnakes(snakes);
+                return;
             }
             snakeList.add(snake);
             System.out.println("Snake: "+ snake);
@@ -73,13 +77,23 @@ public class Table {
         }
     }
 
-    private void setupLadders(int ladders){
+    private void setupLadders(int ladders) throws IntListIndexOutOfBounds {
         if(ladders == 1){
             int ladder = (int)(1+(Math.random()*(totalCells-2)));
+            if(ladderList.contains(ladder)){
+                System.out.println("Si sirvo pri");
+                setupLadders(ladders);
+                return;
+            }
             snakeList.add(ladder);
             System.out.println("Ladder: "+ ladder);
         } else{
             int ladder = (int)(1+(Math.random()*(totalCells-2)));
+            if(ladderList.contains(ladder)){
+                System.out.println("Si sirvo pri");
+                setupLadders(ladders);
+                return;
+            }
             snakeList.add(ladder);
             System.out.println("Ladder: "+ ladder);
             setupLadders(ladders-1);
