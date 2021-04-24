@@ -53,7 +53,7 @@ public class IntList {
         }
     }
 
-    private IntCell getCell(int index){
+    public IntCell getCell(int index){
         if(index == 0){
             return first;
         } else if(index == (size - 1)){
@@ -92,17 +92,41 @@ public class IntList {
         return is;
     }
 
+
     public IntList mergeLists(IntList list1) throws IntListIndexOutOfBounds {
-        if(first == null){
-            first = list1.getCell(0);
+        IntList result = new IntList();
+        result.setFirst(first);
+        result.setLast(last);
+        if(result.getFirst() == null){
+            result.setFirst(list1.getCell(0));
         }else{
-           //add(list1.getCell(list1.getSize()-1));
+            result.getLast().setNext(list1.getCell(list1.getSize()-1));
         }
-        //return ;
+        IntCell prueba = result.getFirst();
+        while(prueba != null){
+            System.out.println(prueba.getValue());
+            prueba = prueba.getNext();
+        }
+        return result;
     }
-    /*
-    public Cell mergeList(Cell lastCell){
-        if()
+
+    public IntCell getFirst() {
+        return first;
     }
-    */
+
+    public void setFirst(IntCell first) {
+        this.first = first;
+    }
+
+    public IntCell getLast() {
+        return last;
+    }
+
+    public void setLast(IntCell last) {
+        this.last = last;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }

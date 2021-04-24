@@ -13,6 +13,7 @@ public class Table {
     private Snake snake;
     private IntList snakeList;
     private IntList ladderList;
+    private IntList usedCells;
 
     private int participants;
     private String icons;
@@ -27,8 +28,10 @@ public class Table {
         this.totalCells = rows*columns;
         this.snakeList = new IntList();
         this.ladderList = new IntList();
-        setupSnakes(snakes);
-        setupLadders(ladders);
+        this.usedCells = new IntList();
+        //setupSnakes(snakes);
+        //setupLadders(ladders);
+        //snakeList.mergeLists(ladderList);
 
         //TODO recursive method to fill icons
     }
@@ -41,76 +44,115 @@ public class Table {
         this.icons = icons;
         this.totalCells = rows*columns;
         this.participants = icons.length();
-        setupSnakes(snakes);
-        setupLadders(ladders);
+
     }
 
     //TODO recursive method to create and fill cells
-    public void createTable(){
+    public void createTable() throws IntListIndexOutOfBounds {
         cells = new Cell(totalCells);
 
         //System.out.println("Cell number"+cells.getNumber());
         createTable(totalCells, null);
+        //setupSnakes(snakes);
+        //setupLadders(ladders);
+        //setSnakes(snakeList.getSize()-1);
 
     }
 
-    private void setupSnakes(int snakes) throws IntListIndexOutOfBounds {
+    public void setupSnakes(int snakes) throws IntListIndexOutOfBounds {
         if(snakes == 1){
-            int snake = (int)(1+(Math.random()*(totalCells-2)));
-            if(snakeList.contains(snake)){
+            int snake = (int)((columns+1)+(Math.random()*((totalCells-columns)-1)));
+            if(usedCells.contains(snake)){
                 System.out.println("papi, si sirvo");
                 setupSnakes(snakes);
                 return;
             }
+            usedCells.add(snake);
             snakeList.add(snake);
             System.out.println("Snake: "+ snake);
         } else{
-            int snake = (int)(1+(Math.random()*(totalCells-2)));
-            if(snakeList.contains(snake)){
+            int snake = (int)((columns+1)+(Math.random()*((totalCells-columns)-1)));
+            if(usedCells.contains(snake)){
                 System.out.println("papi, si sirvo");
                 setupSnakes(snakes);
                 return;
             }
+            usedCells.add(snake);
             snakeList.add(snake);
             System.out.println("Snake: "+ snake);
             setupSnakes(snakes-1);
         }
+        //;
     }
 
-    private void setupLadders(int ladders) throws IntListIndexOutOfBounds {
+    public Cell getCellA(int index, int noCares){
+        return getCellA(index-1);
+    }
+    public Cell getCellA(int index){
+        if(index == 0 ){
+            System.out.println("Aqui toy pri");
+            return cells;
+        }else{
+            System.out.println(index);
+            return getCellA(index-1).getNext()  ;
+        }
+    }
+
+    public void setSnakes(int i) throws IntListIndexOutOfBounds {
+        System.out.println(i);
+        if(i > 0 && snakeList.getCell(i-1) != null){
+            System.out.println("Entra a este if pri");
+            int value = snakeList.getCell(i-1).getValue()-((snakeList.getCell(i-1).getValue())%columns);
+            int val2 = (int)(1+(Math.random()*(value)));
+            if(!usedCells.contains(val2)){
+                System.out.println("Entra pri");
+                System.out.println("Val2: "+val2);
+                System.out.println("a"+snakeList.get(i-1));
+                getCellA((snakeList.get(i-1))-1, 0).setSnake(getCellA(val2));
+                System.out.println(i-1);
+                setSnakes(i-1);
+            }else{
+                System.out.println("Else pri");
+                setSnakes(i);
+            }
+        }
+        Cell cell = cells.getNext();
+        while(cell != null){
+            if(cell.getSnake() != null) {
+                //System.out.println("Añadiendo serpientes " + cell.getSnake().getNumber());
+                cell = cell.getNext();
+            }else{
+                cell = cell.getNext();
+            }
+        }
+    }
+    //private void setSnakes()
+
+    public void setupLadders(int ladders) throws IntListIndexOutOfBounds {
         if(ladders == 1){
             int ladder = (int)(1+(Math.random()*(totalCells-2)));
-            if(ladderList.contains(ladder)){
+            if(usedCells.contains(ladder)){
                 System.out.println("Si sirvo pri");
                 setupLadders(ladders);
                 return;
             }
-            snakeList.add(ladder);
+            usedCells.add(ladder);
+            ladderList.add(ladder);
             System.out.println("Ladder: "+ ladder);
         } else{
             int ladder = (int)(1+(Math.random()*(totalCells-2)));
-            if(ladderList.contains(ladder)){
+            if(usedCells.contains(ladder)){
                 System.out.println("Si sirvo pri");
                 setupLadders(ladders);
                 return;
             }
-            snakeList.add(ladder);
+            usedCells.add(ladder);
+            ladderList.add(ladder);
             System.out.println("Ladder: "+ ladder);
             setupLadders(ladders-1);
         }
     }
-    /*
-    public void createTable(int totalCells, Cell nextCell, int total){
-        if(!(totalCells == 0)){
-            Cell tempCell = new Cell(totalCells, null, nextCell);
-            nextCell.setNext(tempCell);
-            createTable(totalCells-1, tempCell, total);
-        }if(nextCell == null){
-            Cell tempCell = new Cell(totalCells);
-            nextCell.setNext(tempCell);
-        }
-    }
-    */
+
     public Cell createTable(int totalCells, Cell nextCell) {
         if (totalCells == 0) { //Base case
             Cell tempCell = new Cell(totalCells, nextCell, true);
@@ -131,57 +173,95 @@ public class Table {
         }
     }
 
-    /*
-    public void existingNum(){
-
+    public Cell getCells() {
+        return cells;
     }
 
-    public void generateSnakes(){
-        int piso = columns+1;
-        int techo = totalCells-1;
-
-        int num = (int)(Math.random()*((techo+1)-(piso)))+piso;
-        posSnakes += num+",";
-
-        //System.out.println("First time: "+num);
-        snake = new Snake(num, "Snake "+snakes);
-
-        num = (int)(Math.random()*((techo+1)-(piso)))+piso;
-        if(posSnakes.contains(String.valueOf(num))){
-            num = (int)(Math.random()*((techo+1)-(piso)))+piso;
-        }
-        posSnakes += num+",";
-
-        //System.out.println("Second time: "+num);
-
-        generateSnakes(snakes-1, snake, num);
+    public void setCells(Cell cells) {
+        this.cells = cells;
     }
-    public void generateSnakes(int snakes, Snake currentSnake, int numValue){
-        //Snakes
-        if(snakes!=0){
-            //int value = (int)((Math.random()*totalCells)-2);
-            int piso = columns+1;
-            int techo = totalCells-1;
 
-            Snake tempSnake = new Snake(numValue, "Snake "+snakes);
-            currentSnake.setNextSnake(tempSnake);
-
-            System.out.println("current "+ currentSnake.getName()+" " +currentSnake.getNum());
-            System.out.println("temp "+ tempSnake.getName()+" " +tempSnake.getNum());
-
-            int num = (int)(Math.random()*((techo+1)-(piso)))+piso;
-            if(posSnakes.contains(String.valueOf(num))){
-                num = (int)(Math.random()*((techo+1)-(piso)))+piso;
-                posSnakes += num+",";
-            }
-
-
-            generateSnakes(snakes-1, tempSnake, num);
-        }
+    public int getRows() {
+        return rows;
     }
-     */
 
-    public void addSnakes(int snakes){
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
 
+    public int getColumns() {
+        return columns;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    public int getLadders() {
+        return ladders;
+    }
+
+    public void setLadders(int ladders) {
+        this.ladders = ladders;
+    }
+
+    public int getSnakes() {
+        return snakes;
+    }
+
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public void setSnake(Snake snake) {
+        this.snake = snake;
+    }
+
+    public IntList getSnakeList() {
+        return snakeList;
+    }
+
+    public void setSnakeList(IntList snakeList) {
+        this.snakeList = snakeList;
+    }
+
+    public IntList getLadderList() {
+        return ladderList;
+    }
+
+    public void setLadderList(IntList ladderList) {
+        this.ladderList = ladderList;
+    }
+
+    public IntList getUsedCells() {
+        return usedCells;
+    }
+
+    public void setUsedCells(IntList usedCells) {
+        this.usedCells = usedCells;
+    }
+
+    public int getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(int participants) {
+        this.participants = participants;
+    }
+
+    public String getIcons() {
+        return icons;
+    }
+
+    public void setIcons(String icons) {
+        this.icons = icons;
+    }
+
+    public int getTotalCells() {
+        return totalCells;
+    }
+
+    public void setTotalCells(int totalCells) {
+        this.totalCells = totalCells;
     }
 }
