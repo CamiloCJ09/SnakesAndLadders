@@ -86,15 +86,15 @@ public class Table {
     }
 
     public Cell getCellA(int index, int noCares){
-        return getCellA(index-1);
+        return getCellA(index);
     }
     public Cell getCellA(int index){
-        if(index == 0 ){
+        if(index == 2){
             System.out.println("Aqui toy pri");
             return cells;
         }else{
             System.out.println(index);
-            return getCellA(index-1).getNext()  ;
+            return getCellA(index-1).getBehind()  ;
         }
     }
 
@@ -151,11 +151,12 @@ public class Table {
             System.out.println("Ladder: "+ ladder);
             setupLadders(ladders-1);
         }
+        prueba();
     }
 
     public Cell createTable(int totalCells, Cell nextCell) {
         if (totalCells == 0) { //Base case
-            Cell tempCell = new Cell(totalCells, nextCell, true);
+            Cell tempCell = new Cell(totalCells, nextCell, false);
             System.out.println("Case 0"+tempCell.getNumber());
             return tempCell;
         } else if (nextCell == null) { //Last case
@@ -165,12 +166,20 @@ public class Table {
 
             return tempCell;
         } else { //General case
-            Cell tempCell = new Cell(totalCells, nextCell, true);
+            Cell tempCell = new Cell(totalCells, nextCell, false);
             tempCell.setBehind(createTable(totalCells - 1, tempCell));
             System.out.println("General case"+tempCell.getNumber());
 
             return tempCell;
         }
+    }
+    public void prueba(){
+        Cell cell = cells;
+        while(cell != null){
+            System.out.println("Hola");
+            cell = cell.getBehind();
+        }
+
     }
 
     public Cell getCells() {
