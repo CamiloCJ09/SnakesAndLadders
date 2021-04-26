@@ -16,7 +16,7 @@ public class Main {
         table.createTable();
         table.setupSnakes(table.getSnakes());
         table.setupLadders(table.getColumns());
-        table.setSnakes(table.getSnakeList().getSize());
+        //table.setSnakes(table.getSnakeList().getSize());
         System.out.println("asd");
     }
 

@@ -15,3 +15,5 @@ D
 src/model/Snake.java,1\e\1e911dc2a161958e89fa3f86a169355b2ace22dc
 F
 src/model/IntList.java,c\f\cfed33ae75a297017197e89a8ec0ab0472c47a61
+F
+src/model/IntCell.java,7\3\738bc8ed4778922603d9d8665ba821f7566d9012
