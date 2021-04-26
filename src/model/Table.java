@@ -56,8 +56,9 @@ public class Table {
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //setSnakes(snakeList.getSize()-1);
-        prueba1();
-        prueba2();
+        //prueba1();
+        //prueba2();
+        //prueba3();
     }
 
     public void setupSnakes(int snakes) throws IntListIndexOutOfBounds {
@@ -86,12 +87,12 @@ public class Table {
         //;
     }
 
-    public Cell getCellA(int index, int noCares){
+    /*public Cell getCellA(int index, int noCares){
         return getCellA(index);
-    }
+    }*/
     public Cell getCellA(int index){
         if(index == 0){
-            System.out.println("Aqui toy pri");
+            //System.out.println("Aqui toy pri");
             return cells;
         }else{
             return getCellA(index-1).getNext();
@@ -99,34 +100,46 @@ public class Table {
     }
 
     public void setSnakes(int i) throws IntListIndexOutOfBounds {
-        System.out.println(i);
-        if(i > 0 && snakeList.getCell(i-1) != null){
+        //System.out.println(i);
+        if(i > 0 && snakeList.getCell(i) != null){
             System.out.println("Entra a este if pri");
-            int value = snakeList.getCell(i-1).getValue()-((snakeList.getCell(i-1).getValue())%columns);
+            int mod = (snakeList.getCell(i).getValue())%columns;
+            if(mod == 0){
+                mod = snakeList.getCell(i).getValue()-columns;
+            }
+            int value = snakeList.getCell(i).getValue()-(mod);
             int val2 = (int)(1+(Math.random()*(value)));
             if(!usedCells.contains(val2)){
                 System.out.println("Entra pri");
                 System.out.println("Val2: "+val2);
-                System.out.println("a"+snakeList.get(i-1));
-                getCellA((snakeList.get(i-1))-1, 0).setSnake(getCellA(val2));
-                System.out.println(i-1);
+                System.out.println("a "+snakeList.get(i));
+                System.out.println("a2 "+getCellA(snakeList.get(i)).getNumber());
+                getCellA((snakeList.get(i)-1)).setSnake(getCellA(val2-1));
+                usedCells.add(val2);
+                System.out.println("b "+snakeList.get(i));
+                //System.out.println("Donde termina la serpiente"+getCellA(snakeList.get(i)).getSnake().getNumber());
+                System.out.println("I: "+(i-1));
                 setSnakes(i-1);
             }else{
                 System.out.println("Else pri");
                 setSnakes(i);
             }
-        }
-        Cell cell = cells.getNext();
+        }else{}
+
+
+    }
+    public void prueba3(){
+        Cell cell = cells;
         while(cell != null){
+            //System.out.println(cell.getNumber());
             if(cell.getSnake() != null) {
-                //System.out.println("Añadiendo serpientes " + cell.getSnake().getNumber());
+                System.out.println("La celda "+ cell.getNumber() +" baja serpiente hasta " + cell.getSnake().getNumber());
                 cell = cell.getNext();
             }else{
                 cell = cell.getNext();
             }
         }
     }
-    //private void setSnakes()
 
     public void setupLadders(int ladders) throws IntListIndexOutOfBounds {
         if(ladders == 1){
@@ -159,7 +172,7 @@ public class Table {
             return cell;
         }else{
             Cell cell = new Cell(actualCell);
-            System.out.println(cell.getNumber());
+            //System.out.println(cell.getNumber());
             cell.setNext(createTable(totalCells, actualCell+1));
             return cell;
         }
@@ -167,7 +180,8 @@ public class Table {
 
     private void setupBehind(int totalCells){
         if(totalCells != 1){
-            getCellA(totalCells-1).setBehind(getCellA(totalCells-2));
+            getCellA(totalCells-1).setBehind(getCellA((totalCells-1)-1));
+            setupBehind(totalCells-1);
         }
     }
 
@@ -185,6 +199,8 @@ public class Table {
         while(counter > 0){
             System.out.println(counter);
             System.out.println(getCellA(counter).getBehind());
+            System.out.println("El anterior a "+ getCellA(counter).getNumber()+" es "+(+getCellA(counter).getBehind().getNumber()));
+
             counter--;
         }
     }
