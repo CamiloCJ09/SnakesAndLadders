@@ -49,14 +49,15 @@ public class Table {
 
     //TODO recursive method to create and fill cells
     public void createTable() throws IntListIndexOutOfBounds {
-        cells = new Cell(totalCells);
 
         //System.out.println("Cell number"+cells.getNumber());
-        createTable(totalCells, null);
+        cells = createTable(totalCells,1);
+        setupBehind(totalCells);
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //setSnakes(snakeList.getSize()-1);
-
+        prueba1();
+        prueba2();
     }
 
     public void setupSnakes(int snakes) throws IntListIndexOutOfBounds {
@@ -89,12 +90,11 @@ public class Table {
         return getCellA(index);
     }
     public Cell getCellA(int index){
-        if(index == 2){
+        if(index == 0){
             System.out.println("Aqui toy pri");
             return cells;
         }else{
-            System.out.println(index);
-            return getCellA(index-1).getBehind()  ;
+            return getCellA(index-1).getNext();
         }
     }
 
@@ -151,35 +151,42 @@ public class Table {
             System.out.println("Ladder: "+ ladder);
             setupLadders(ladders-1);
         }
-        prueba();
     }
 
-    public Cell createTable(int totalCells, Cell nextCell) {
-        if (totalCells == 0) { //Base case
-            Cell tempCell = new Cell(totalCells, nextCell, false);
-            System.out.println("Case 0"+tempCell.getNumber());
-            return tempCell;
-        } else if (nextCell == null) { //Last case
-            Cell tempCell = new Cell(totalCells);
-            tempCell.setBehind(createTable(totalCells - 1, tempCell));
-            System.out.println("Case null"+tempCell.getNumber());
-
-            return tempCell;
-        } else { //General case
-            Cell tempCell = new Cell(totalCells, nextCell, false);
-            tempCell.setBehind(createTable(totalCells - 1, tempCell));
-            System.out.println("General case"+tempCell.getNumber());
-
-            return tempCell;
+    private Cell createTable(int totalCells, int actualCell) {
+        if(actualCell == totalCells){
+            Cell cell = new Cell(actualCell);
+            return cell;
+        }else{
+            Cell cell = new Cell(actualCell);
+            System.out.println(cell.getNumber());
+            cell.setNext(createTable(totalCells, actualCell+1));
+            return cell;
         }
     }
-    public void prueba(){
+
+    private void setupBehind(int totalCells){
+        if(totalCells != 1){
+            getCellA(totalCells-1).setBehind(getCellA(totalCells-2));
+        }
+    }
+
+    public void prueba1(){
         Cell cell = cells;
         while(cell != null){
-            System.out.println("Hola");
-            cell = cell.getBehind();
+            System.out.println("Prueba1");
+            cell = cell.getNext();
         }
 
+    }
+
+    public void prueba2(){
+        int counter = totalCells-1;
+        while(counter > 0){
+            System.out.println(counter);
+            System.out.println(getCellA(counter).getBehind());
+            counter--;
+        }
     }
 
     public Cell getCells() {
