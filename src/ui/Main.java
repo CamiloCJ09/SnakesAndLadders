@@ -8,7 +8,7 @@ public class Main {
     private static Table table;
 
     public Main() throws IntListIndexOutOfBounds {
-        table = new Table(4,5,2,3,2);
+        table = new Table(4,5,2,3,10);
     }
 
     public static void main(String[] args) throws IntListIndexOutOfBounds {
