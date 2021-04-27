@@ -15,6 +15,7 @@ public class Table {
     private IntList ladderList;
     private IntList usedCells;
 
+    private Participants listParticipants;
     private int participants;
     private String icons;
     private int totalCells;
@@ -25,10 +26,12 @@ public class Table {
         this.ladders = ladders;
         this.snakes = snakes;
         this.participants = participants;
+        listParticipants = createParticipants(participants, 1);
         this.totalCells = rows*columns;
         this.snakeList = new IntList();
         this.ladderList = new IntList();
         this.usedCells = new IntList();
+        icons = "";
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //snakeList.mergeLists(ladderList);
@@ -44,7 +47,30 @@ public class Table {
         this.icons = icons;
         this.totalCells = rows*columns;
         this.participants = icons.length();
+        listParticipants = createParticipants(participants, icons, 1);
+    }
 
+    public Participants createParticipants(int participants, String icons, int position){
+        if(position == participants){
+            return new Participants(icons.charAt(position-1));
+        }else{
+            Participants participant = new Participants(icons.charAt(position-1));
+            participant.setNext(createParticipants(participants, icons, position+1));
+            return participant;
+        }
+    }
+
+    public Participants createParticipants(int participants, int position){
+        if(position == participants){
+            icons += (char)(128+position);
+            return new Participants((char)(128+position));
+        }else{
+            icons += (char)(128+position);
+            Participants participant = new Participants((char)(128+position));
+            participant.setNext(createParticipants(participants, position+1));
+            System.out.println(participant.getIcon() + " icono pri");
+            return participant;
+        }
     }
 
     //TODO recursive method to create and fill cells
@@ -53,6 +79,7 @@ public class Table {
         //System.out.println("Cell number"+cells.getNumber());
         cells = createTable(totalCells,1);
         setupBehind(totalCells);
+        System.out.println(icons + "funciono pelelelelelele");
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //setSnakes(snakeList.getSize()-1);
