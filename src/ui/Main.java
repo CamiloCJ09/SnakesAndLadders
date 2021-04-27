@@ -17,8 +17,16 @@ public class Main {
         table.setupSnakes(table.getSnakes());
         table.setupLadders(table.getColumns());
         table.setSnakes(table.getSnakeList().getSize()-1);
+        table.setLadders(table.getLadderList().getSize()-1);
         table.prueba3();
         System.out.println("asd");
+    }
+
+    public String printTable(int rows, int columns){
+
+    }
+    private String printTable(int ){
+
     }
 
 }

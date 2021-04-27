@@ -15,6 +15,7 @@ public class Table {
     private IntList ladderList;
     private IntList usedCells;
 
+    private Participants listParticipants;
     private int participants;
     private String icons;
     private int totalCells;
@@ -25,10 +26,12 @@ public class Table {
         this.ladders = ladders;
         this.snakes = snakes;
         this.participants = participants;
+        listParticipants = createParticipants(participants, 1);
         this.totalCells = rows*columns;
         this.snakeList = new IntList();
         this.ladderList = new IntList();
         this.usedCells = new IntList();
+        icons = "";
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //snakeList.mergeLists(ladderList);
@@ -44,7 +47,30 @@ public class Table {
         this.icons = icons;
         this.totalCells = rows*columns;
         this.participants = icons.length();
+        listParticipants = createParticipants(participants, icons, 1);
+    }
 
+    public Participants createParticipants(int participants, String icons, int position){
+        if(position == participants){
+            return new Participants(icons.charAt(position-1));
+        }else{
+            Participants participant = new Participants(icons.charAt(position-1));
+            participant.setNext(createParticipants(participants, icons, position+1));
+            return participant;
+        }
+    }
+
+    public Participants createParticipants(int participants, int position){
+        if(position == participants){
+            icons += (char)(128+position);
+            return new Participants((char)(128+position));
+        }else{
+            icons += (char)(128+position);
+            Participants participant = new Participants((char)(128+position));
+            participant.setNext(createParticipants(participants, position+1));
+            System.out.println(participant.getIcon() + " icono pri");
+            return participant;
+        }
     }
 
     //TODO recursive method to create and fill cells
@@ -53,6 +79,7 @@ public class Table {
         //System.out.println("Cell number"+cells.getNumber());
         cells = createTable(totalCells,1);
         setupBehind(totalCells);
+        System.out.println(icons + "funciono pelelelelelele");
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //setSnakes(snakeList.getSize()-1);
@@ -100,9 +127,7 @@ public class Table {
     }
 
     public void setSnakes(int i) throws IntListIndexOutOfBounds {
-        //System.out.println(i);
         if(i > 0 && snakeList.getCell(i) != null){
-            System.out.println("Entra a este if pri");
             int mod = (snakeList.getCell(i).getValue())%columns;
             if(mod == 0){
                 mod = snakeList.getCell(i).getValue()-columns;
@@ -110,23 +135,30 @@ public class Table {
             int value = snakeList.getCell(i).getValue()-(mod);
             int val2 = (int)(1+(Math.random()*(value)));
             if(!usedCells.contains(val2)){
-                System.out.println("Entra pri");
-                System.out.println("Val2: "+val2);
-                System.out.println("a "+snakeList.get(i));
-                System.out.println("a2 "+getCellA(snakeList.get(i)).getNumber());
                 getCellA((snakeList.get(i)-1)).setSnake(getCellA(val2-1));
                 usedCells.add(val2);
-                System.out.println("b "+snakeList.get(i));
-                //System.out.println("Donde termina la serpiente"+getCellA(snakeList.get(i)).getSnake().getNumber());
-                System.out.println("I: "+(i-1));
                 setSnakes(i-1);
             }else{
-                System.out.println("Else pri");
                 setSnakes(i);
             }
-        }else{}
-
-
+        }
+    }
+    public void setLadders(int i) throws IntListIndexOutOfBounds {
+        if(i > 0 && ladderList.getCell(i) != null){
+            int mod = (snakeList.getCell(i).getValue())%columns;
+            if(mod == 0){
+                mod = ladderList.getCell(i).getValue()+1;
+            }
+            int value = ladderList.getCell(i).getValue()+(mod);
+            int val2 = (int)(1+(Math.random()*(value)));
+            if(!usedCells.contains(val2)){
+                getCellA((ladderList.get(i)-1)).setLader(getCellA(val2-1));
+                usedCells.add(val2);
+                setLadders(i-1);
+            }else{
+                setLadders(i);
+            }
+        }
     }
     public void prueba3(){
         Cell cell = cells;
@@ -233,9 +265,6 @@ public class Table {
         return ladders;
     }
 
-    public void setLadders(int ladders) {
-        this.ladders = ladders;
-    }
 
     public int getSnakes() {
         return snakes;
