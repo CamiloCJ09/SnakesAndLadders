@@ -6,7 +6,9 @@ public class Cell {
     private Cell next;
     private Cell behind;
     private Cell lader;
+    private int ladderNum;
     private Cell snake;
+    private int snakeNum;
 
     public Cell(int number){
         this.number = number;

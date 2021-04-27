@@ -1,6 +1,7 @@
 package ui;
 
 import exceptions.IntListIndexOutOfBounds;
+import model.Cell;
 import model.Table;
 
 public class Main {
@@ -23,10 +24,12 @@ public class Main {
     }
 
     public String printTable(int rows, int columns){
-
+        int totalCells = table.getRows()*table.getColumns();
+        return printTable(columns, totalCells, 1, "", table.getCells());
     }
-    private String printTable(int ){
-
+    private String printTable(int columns, int totalCells, int lineBreak, String out, Cell lastCell){
+        String ret = "";
+        return ret;
     }
 
 }

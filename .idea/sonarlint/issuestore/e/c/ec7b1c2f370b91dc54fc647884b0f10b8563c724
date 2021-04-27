@@ -1,25 +1,25 @@
 
-K
-java:S2140J")Use "java.util.Random.nextInt()" instead.(ÉÛ€˜ıÿÿÿÿ8£¥«/
-
-java:S11303"{Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from method's body.(¬“æ˜üÿÿÿÿ8ÏØ­/
-K
-java:S2140@")Use "java.util.Random.nextInt()" instead.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
 [
-java:S1117@"9Rename "snake" which hides the field declared at line 13.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
+java:S1117]"9Rename "snake" which hides the field declared at line 13.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
+K
+java:S2140]")Use "java.util.Random.nextInt()" instead.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
 [
-java:S1117J"9Rename "snake" which hides the field declared at line 13.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
-x
-java:S3923y"[Remove this conditional structure or edit its code blocks so that they're not all the same.(©„ü8˜ìÓ°/
+java:S1117g"9Rename "snake" which hides the field declared at line 13.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
+G
+java:S2140²")Use "java.util.Random.nextInt()" instead.(ÅÆç÷8„¬Ğ°/
 £
-java:S1130"€Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from constructor's body.(±­‚Øüÿÿÿÿ8†ëÙ­/
+java:S1130"€Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from constructor's body.(±­‚Øüÿÿÿÿ8 İÚ…‘/
 
-java:S1130'"€Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from constructor's body.(™ì¢¯8²”¦­/
-F
-java:S2140j")Use "java.util.Random.nextInt()" instead.(ÓĞµô8„¬Ğ°/
-G
-java:S2140")Use "java.util.Random.nextInt()" instead.(ÅÆç÷8„¬Ğ°/
+java:S1130*"€Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from constructor's body.(™ì¢¯8²”¦­/
+V
+java:S1068"4Remove this unused "listParticipants" private field.(ÇŸôØÿÿÿÿÿ8Ç„Ú…‘/
 K
-java:S1172X".Remove this unused method parameter "noCares".(ì¶áç8šÙç¯/
+java:S2140g")Use "java.util.Random.nextInt()" instead.(ÉÛ€˜ıÿÿÿÿ8£¥«/
 G
-java:S2140…")Use "java.util.Random.nextInt()" instead.(ÅÆç÷8„¬Ğ°/
+java:S2140™")Use "java.util.Random.nextInt()" instead.(ÓĞµô8İŠ¹ı/
+
+java:S1130M"{Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from method's body.(¬“æ˜üÿÿÿÿ8ÏØ­/
+G
+java:S2140ˆ")Use "java.util.Random.nextInt()" instead.(ÓĞµô8„¬Ğ°/
+G
+java:S2140¼")Use "java.util.Random.nextInt()" instead.(ÅÆç÷8„¬Ğ°/
