@@ -8,7 +8,7 @@ public class Cell {
     private Cell lader;
     private int ladderNum;
     private Cell snake;
-    private int snakeNum;
+    private char snakeLetter;
 
     public Cell(int number){
         this.number = number;
@@ -96,5 +96,21 @@ public class Cell {
 
     public void setSnake(Cell snake) {
         this.snake = snake;
+    }
+
+    public int getLadderNum() {
+        return ladderNum;
+    }
+
+    public void setLadderNum(int ladderNum) {
+        this.ladderNum = ladderNum;
+    }
+
+    public char getSnakeLetter() {
+        return snakeLetter;
+    }
+
+    public void setSnakeLetter(char snakeLetter) {
+        this.snakeLetter = snakeLetter;
     }
 }
