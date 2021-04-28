@@ -62,14 +62,23 @@ public class Table {
 
     public Participants createParticipants(int participants, int position){
         if(position == participants){
-            icons += (char)(128+position);
-            return new Participants((char)(128+position));
+            return new Participants((char)(33+position));
         }else{
-            icons += (char)(128+position);
-            Participants participant = new Participants((char)(128+position));
+            Participants participant = new Participants((char)(33+position));
             participant.setNext(createParticipants(participants, position+1));
-            System.out.println(participant.getIcon() + " icono pri");
             return participant;
+        }
+    }
+
+    public void fillIcons(int number, int position, Participants actualParticipant){
+        if(position == 1){
+            icons += actualParticipant.getIcon();
+            fillIcons(number, position+1, actualParticipant);
+        } else if(position == number){
+            icons += actualParticipant.getNext().getIcon();
+        }else{
+            icons += actualParticipant.getNext().getIcon();
+            fillIcons(number, position+1, actualParticipant.getNext());
         }
     }
 
@@ -79,7 +88,7 @@ public class Table {
         //System.out.println("Cell number"+cells.getNumber());
         cells = createTable(totalCells,1);
         setupBehind(totalCells);
-        System.out.println(icons + "funciono pelelelelelele");
+        fillIcons(participants, 1, listParticipants);
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //setSnakes(snakeList.getSize()-1);
