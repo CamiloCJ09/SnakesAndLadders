@@ -1,21 +1,19 @@
 
-H
-java:S1481¨"*Remove this unused "value" local variable.(°· ø8ÍÊ³±‘/
-G
-java:S2140–")Use "java.util.Random.nextInt()" instead.(ÓĞµô8„¬Ğ°/
-£
-java:S1130"€Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from constructor's body.(±­‚Øüÿÿÿÿ8 İÚ…‘/
-h
-java:S1192¼"JDefine a constant instead of duplicating this literal "La celda " 4 times.(˜¹êë8 ³ê°‘/
 
 java:S1130/"€Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from constructor's body.(™ì¢¯8²”¦­/
-
-java:S1130["{Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from method's body.(¬“æ˜üÿÿÿÿ8ÇôÇ¯‘/
 [
 java:S1117k"9Rename "snake" which hides the field declared at line 15.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
-K
-java:S2140u")Use "java.util.Random.nextInt()" instead.(ÉÛ€˜ıÿÿÿÿ8£¥«/
 [
 java:S1117u"9Rename "snake" which hides the field declared at line 15.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
+G
+java:S2140–")Use "java.util.Random.nextInt()" instead.(ÓĞµô8„¬Ğ°/
+
+java:S1130["{Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from method's body.(¬“æ˜üÿÿÿÿ8ÇôÇ¯‘/
+£
+java:S1130"€Remove the declaration of thrown exception 'exceptions.IntListIndexOutOfBounds', as it cannot be thrown from constructor's body.(±­‚Øüÿÿÿÿ8 İÚ…‘/
 K
 java:S2140k")Use "java.util.Random.nextInt()" instead.(ÉÛ€˜ıÿÿÿÿ8ŞÉüß/
+K
+java:S2140u")Use "java.util.Random.nextInt()" instead.(ÉÛ€˜ıÿÿÿÿ8£¥«/
+h
+java:S1192¾"JDefine a constant instead of duplicating this literal "La celda " 4 times.(˜¹êë8 ³ê°‘/

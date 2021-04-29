@@ -44,6 +44,22 @@ public class Table {
         //TODO recursive method to fill icons
     }
 
+    public void prueba4(){
+        for(int i = 0; i < totalCells-1; i+=2){
+
+            moveParticipant(0,i);
+
+            System.out.println("Movimiento "+i);
+
+            int a = 0;
+            Cell prv = cells;
+            while(prv != null){
+                System.out.println("Participants in cell "+prv.getNumber()+": "+prv.getParticipants());
+                prv = prv.getNext();
+            }
+        }
+    }
+
     public Table(int rows, int columns, int ladders, int snakes, String icons) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
@@ -84,11 +100,26 @@ public class Table {
     }
 
     public void moveParticipant(int participant, int moves){
+        String a = " ";
+        Character c = Character.MIN_VALUE;
         Participants part = getParticipant(participant);
-        Cell act = getPos(part.getPosition()-1);
-        act.setParticipants(act.getParticipants().replace(part.getIcon(), (char) 0));
-        Cell nxt = getPos(part.getPosition()+moves-1);
-        nxt.setParticipants(act.getParticipants()+part.getIcon());
+        if(part.getPosition()+moves <= totalCells){
+            Cell act = getPos(part.getPosition()-1);
+            act.setParticipants(act.getParticipants().replaceAll(String.valueOf(part.getIcon()), ""));
+            Cell nxt = getPos(part.getPosition()+moves-1);
+            if(nxt.getLader() != null){
+                Cell ladder = nxt.getLader();
+                ladder.setParticipants(ladder.getParticipants() + part.getIcon());
+                part.setPosition(ladder.getNumber());
+            }else if(nxt.getSnake() != null){
+                Cell snake = nxt.getSnake();
+                snake.setParticipants(snake.getParticipants() + part.getIcon());
+                part.setPosition(snake.getNumber());
+            }else{
+                nxt.setParticipants(nxt.getParticipants()+part.getIcon());
+                part.setPosition(part.getPosition()+moves);
+            }
+        }
     }
 
 
@@ -206,6 +237,7 @@ public class Table {
             }
         }
     }
+
     public void prueba3(){
         Cell cell = cells;
         while(cell != null){
