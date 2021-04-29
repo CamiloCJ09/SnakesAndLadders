@@ -9,9 +9,11 @@ public class Cell {
     private int ladderNum;
     private Cell snake;
     private int snakeNum;
+    private String participants;
 
     public Cell(int number){
         this.number = number;
+        this.participants = "";
         this.next = null;
         this.behind = null;
         this.lader = null;
@@ -22,11 +24,13 @@ public class Cell {
         if(isFirst){
             this.number = number;
             this.next = cell;
+            this.participants = "";
             this.behind = null;
             this.lader = null;
             this.snake = null;
         } else{
             this.number = number;
+            this.participants = "";
             this.next = null;
             this.behind = cell;
             this.lader = null;
@@ -36,6 +40,7 @@ public class Cell {
 
     public Cell(int number, Cell next, Cell behind){
         this.number = number;
+        this.participants = "";
         this.next = next;
         this.behind = behind;
         this.lader = null;
@@ -45,12 +50,14 @@ public class Cell {
     public Cell(int number, Cell next, Cell behind, Cell optional, boolean isLader){
         if(isLader){
             this.number = number;
+            this.participants = "";
             this.next = next;
             this.behind = behind;
             this.lader = optional;
             this.snake = null;
         } else{
             this.number = number;
+            this.participants = "";
             this.next = next;
             this.behind = behind;
             this.lader = null;
@@ -96,5 +103,13 @@ public class Cell {
 
     public void setSnake(Cell snake) {
         this.snake = snake;
+    }
+
+    public String getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(String participants) {
+        this.participants = participants;
     }
 }

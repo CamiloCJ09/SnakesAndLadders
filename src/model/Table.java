@@ -70,6 +70,31 @@ public class Table {
         }
     }
 
+    public Participants getParticipant(int index){
+        if(index == 0){
+            return listParticipants;
+        }else{
+            return getParticipant(index-1).getNext();
+        }
+    }
+
+    public void moveParticipant(int participant, int moves){
+        Participants part = getParticipant(participant);
+        Cell act = getPos(part.getPosition()-1);
+        act.setParticipants(act.getParticipants().replace(part.getIcon(), (char) 0));
+        Cell nxt = getPos(part.getPosition()+moves-1);
+        nxt.setParticipants(act.getParticipants()+part.getIcon());
+    }
+
+
+    public Cell getPos(int index){
+        if(index == 0){
+            return cells;
+        }else{
+            return getPos(index-1).getNext();
+        }
+    }
+
     public void fillIcons(int number, int position, Participants actualParticipant){
         if(position == 1){
             icons += actualParticipant.getIcon();

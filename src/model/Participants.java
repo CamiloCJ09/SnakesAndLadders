@@ -9,7 +9,7 @@ public class Participants {
 
     public Participants(char icon){
         this.icon = icon;
-        position = 0;
+        position = 1;
         moves = 0;
         next = null;
     }
