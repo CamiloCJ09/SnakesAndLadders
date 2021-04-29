@@ -9,7 +9,7 @@ public class Main {
     private static Table table;
 
     public Main() throws IntListIndexOutOfBounds {
-        table = new Table(4,5,2,3,10);
+        table = new Table(5,5,2,3,10);
     }
 
     public static void main(String[] args) throws IntListIndexOutOfBounds {
@@ -17,9 +17,9 @@ public class Main {
         table.createTable();
         table.setupSnakes(table.getSnakes());
         table.setupLadders(table.getColumns());
-        table.setSnakes(table.getSnakeList().getSize()-1);
-        table.setLadders(table.getLadderList().getSize()-1);
-        table.prueba3();
+        table.setSnakes(table.getSnakeList().getSize()-1, 65);
+        table.setLadders(table.getLadderList().getSize()-1, 1);
+        //table.prueba3();
         System.out.println("asd");
     }
 

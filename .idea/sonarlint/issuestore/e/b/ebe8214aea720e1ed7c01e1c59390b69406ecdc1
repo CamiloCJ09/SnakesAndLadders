@@ -1,13 +1,9 @@
 
-H
-java:S1172"&Remove these unused method parameters.(ŸÅÂ¯úÿÿÿÿ8ºÈô‡‘/
+D
+java:S3010""Remove this assignment of "table".(§ªÄ¤ÿÿÿÿÿ8´üşß/
+M
+java:S1172"+Remove this unused method parameter "rows".(ŸÅÂ¯úÿÿÿÿ8ºÈô‡‘/
 H
 java:S1172"&Remove these unused method parameters.(©—Êæıÿÿÿÿ8„¾õ‡‘/
 K
 java:S1481")Remove this unused "main" local variable.(²Äˆİÿÿÿÿÿ8´üşß/
-?
-java:S3010""Remove this assignment of "table".(­‹š 8´üşß/
-Q
-java:S3740"/Provide the parametrized type for this generic.(©—Êæıÿÿÿÿ8Šşú‡‘/
-Q
-java:S1144"/Remove this unused private "printTable" method.(©—Êæıÿÿÿÿ8Šşú‡‘/

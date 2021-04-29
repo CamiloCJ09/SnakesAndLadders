@@ -2,6 +2,8 @@ package model;
 
 import exceptions.IntListIndexOutOfBounds;
 
+import java.util.Random;
+
 public class Table {
 
     private Cell cells;
@@ -20,6 +22,8 @@ public class Table {
     private String icons;
     private int totalCells;
 
+    private Random random;
+
     public Table(int rows, int columns, int ladders, int snakes, int participants) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
@@ -32,6 +36,7 @@ public class Table {
         this.ladderList = new IntList();
         this.usedCells = new IntList();
         icons = "";
+        random = new Random();
         //setupSnakes(snakes);
         //setupLadders(ladders);
         //snakeList.mergeLists(ladderList);
@@ -160,7 +165,7 @@ public class Table {
         }
     }
 
-    public void setSnakes(int i) throws IntListIndexOutOfBounds {
+    public void setSnakes(int i, int character) throws IntListIndexOutOfBounds {
         if(i > 0 && snakeList.getCell(i) != null){
             int mod = (snakeList.getCell(i).getValue())%columns;
             if(mod == 0){
@@ -169,28 +174,35 @@ public class Table {
             int value = snakeList.getCell(i).getValue()-(mod);
             int val2 = (int)(1+(Math.random()*(value)));
             if(!usedCells.contains(val2)){
+                getCellA(snakeList.get(i)-1).setSnakeLetter((char) character);
+                getCellA(val2-1).setSnakeLetter((char)character);
                 getCellA((snakeList.get(i)-1)).setSnake(getCellA(val2-1));
                 usedCells.add(val2);
-                setSnakes(i-1);
+                setSnakes(i-1, character+1);
             }else{
-                setSnakes(i);
+                setSnakes(i, character);
             }
         }
     }
-    public void setLadders(int i) throws IntListIndexOutOfBounds {
+    public void setLadders(int i, int ladderNum) throws IntListIndexOutOfBounds {
         if(i > 0 && ladderList.getCell(i) != null){
-            int mod = (snakeList.getCell(i).getValue())%columns;
+            int mod = (ladderList.getCell(i).getValue())%columns;
             if(mod == 0){
-                mod = ladderList.getCell(i).getValue()+1;
+                mod = 1;
             }
             int value = ladderList.getCell(i).getValue()+(mod);
-            int val2 = (int)(1+(Math.random()*(value)));
+            if(ladderList.getCell(i).getValue()>=((totalCells-columns)-1) && ladderList.getCell(i).getValue()<=(totalCells)){
+                value = ladderList.getCell(i).getValue()+1;
+            }
+            int val2 = random.nextInt((totalCells)-value)+value;
             if(!usedCells.contains(val2)){
+                getCellA(ladderList.get(i)-1).setLadderNum(ladderNum);
+                getCellA(val2-1).setLadderNum(ladderNum);
                 getCellA((ladderList.get(i)-1)).setLader(getCellA(val2-1));
                 usedCells.add(val2);
-                setLadders(i-1);
+                setLadders(i-1, ladderNum+1);
             }else{
-                setLadders(i);
+                setLadders(i, ladderNum);
             }
         }
     }
@@ -199,17 +211,25 @@ public class Table {
         while(cell != null){
             //System.out.println(cell.getNumber());
             if(cell.getSnake() != null) {
+                System.out.println("Snake");
                 System.out.println("La celda "+ cell.getNumber() +" baja serpiente hasta " + cell.getSnake().getNumber());
+                System.out.println("La celda "+ cell.getSnakeLetter() +" baja serpiente hasta " + cell.getSnake().getSnakeLetter());
+                cell = cell.getNext();
+            }else if(cell.getLader() != null){
+                System.out.println("Ladder");
+                System.out.println("La celda "+ cell.getNumber() +" sube escalera hasta " + cell.getLader().getNumber());
+                System.out.println("La celda "+ cell.getLadderNum() +" sube escaler hasta " + cell.getLader().getLadderNum());
                 cell = cell.getNext();
             }else{
                 cell = cell.getNext();
             }
+
         }
     }
 
     public void setupLadders(int ladders) throws IntListIndexOutOfBounds {
         if(ladders == 1){
-            int ladder = (int)(1+(Math.random()*(totalCells-2)));
+            int ladder = (1+random.nextInt(totalCells-columns));
             if(usedCells.contains(ladder)){
                 System.out.println("Si sirvo pri");
                 setupLadders(ladders);
@@ -219,7 +239,7 @@ public class Table {
             ladderList.add(ladder);
             System.out.println("Ladder: "+ ladder);
         } else{
-            int ladder = (int)(1+(Math.random()*(totalCells-2)));
+            int ladder = (1+random.nextInt(totalCells-columns));
             if(usedCells.contains(ladder)){
                 System.out.println("Si sirvo pri");
                 setupLadders(ladders);

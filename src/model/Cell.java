@@ -8,8 +8,12 @@ public class Cell {
     private Cell lader;
     private int ladderNum;
     private Cell snake;
+<<<<<<< HEAD
     private int snakeNum;
     private String participants;
+=======
+    private char snakeLetter;
+>>>>>>> 46854fdd6a51aa5626d41e740e8e5a19b48ea2ba
 
     public Cell(int number){
         this.number = number;
@@ -103,6 +107,22 @@ public class Cell {
 
     public void setSnake(Cell snake) {
         this.snake = snake;
+    }
+
+    public int getLadderNum() {
+        return ladderNum;
+    }
+
+    public void setLadderNum(int ladderNum) {
+        this.ladderNum = ladderNum;
+    }
+
+    public char getSnakeLetter() {
+        return snakeLetter;
+    }
+
+    public void setSnakeLetter(char snakeLetter) {
+        this.snakeLetter = snakeLetter;
     }
 
     public String getParticipants() {
