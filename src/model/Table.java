@@ -122,6 +122,70 @@ public class Table {
         }
     }
 
+    public String showTable(){
+        return showTable(getCellA(totalCells-1),1,(totalCells-columns)+1, 1, "");
+    }
+
+    private String showTable(Cell cell1, int count,int cellsA, int row, String out){
+        if(cellsA>0){
+            Cell cell = getCellA(cellsA-1);
+            if(cell != null){
+                if(row%2==0){
+                    if(count != columns){
+                        if(cell.getSnakeLetter()!=((char)0)){
+                            out += "["+(cellsA)+cell.getSnakeLetter()+cell.getParticipants()+"]"+"\t";
+                            return showTable(cell.getBehind(), count+1, cellsA-1, row, out);
+                        }else if(cell.getLadderNum() != 0){
+                            out += "["+(cellsA)+"("+cell.getLadderNum()+")"+cell.getParticipants()+"]"+"\t";
+                            return showTable(cell.getBehind(), count+1, cellsA-1, row, out);
+                        }else{
+                            out += "["+(cellsA)+cell.getParticipants()+"]"+"\t";
+                            return showTable(cell.getBehind(), count+1, cellsA-1, row, out);
+                        }
+                    }else{
+                        if(cell.getSnakeLetter()!=((char)0)){
+                            out += "["+(cellsA)+cell.getSnakeLetter()+cell.getParticipants()+"]"+"\n";
+                            return showTable(cell.getBehind(), 1, cellsA-columns, row+1, out);
+                        }else if(cell.getLadderNum() != 0){
+                            out += "["+(cellsA)+"("+cell.getLadderNum()+")"+cell.getParticipants()+"]"+"\n";
+                            return showTable(cell.getBehind(), 1, cellsA-columns, row+1, out);
+                        }else{
+                            out += "["+(cellsA)+cell.getParticipants()+"]"+"\n";
+                            return showTable(cell.getBehind(), 1, cellsA-columns, row+1, out);
+                        }
+                    }
+                }else{
+                    if(count != columns){
+                        if(cell.getSnakeLetter()!=((char)0)){
+                            out += "["+(cellsA)+cell.getSnakeLetter()+cell.getParticipants()+"]"+"\t";
+                            return showTable(cell.getBehind(), count+1, cellsA+1, row, out);
+                        }else if(cell.getLadderNum() != 0){
+                            out += "["+(cellsA)+"("+cell.getLadderNum()+")"+cell.getParticipants()+"]"+"\t";
+                            return showTable(cell.getBehind(), count+1, cellsA+1, row, out);
+                        }else{
+                            out += "["+(cellsA)+cell.getParticipants()+"]"+"\t";
+                            return showTable(cell.getBehind(), count+1, cellsA+1, row, out);
+                        }
+                    }else{
+                        if(cell.getSnakeLetter()!=((char)0)){
+                            out += "["+(cellsA)+cell.getSnakeLetter()+cell.getParticipants()+"]"+"\n";
+                            return showTable(cell.getBehind(), 1, (cellsA-columns), row+1, out);
+                        }else if(cell.getLadderNum() != 0){
+                            out += "["+(cellsA)+"("+cell.getLadderNum()+")"+cell.getParticipants()+"]"+"\n";
+                            return showTable(cell.getBehind(), 1, (cellsA-columns), row+1, out);
+                        }else{
+                            out += "["+(cellsA)+cell.getParticipants()+"]"+"\n";
+                            return showTable(cell.getBehind(), 1, (cellsA-columns), row+1, out);
+                        }
+                    }
+                }
+            }else{
+                return out;
+            }
+        }
+            return out;
+    }
+
 
     public Cell getPos(int index){
         if(index == 0){
@@ -197,7 +261,7 @@ public class Table {
     }
 
     public void setSnakes(int i, int character) throws IntListIndexOutOfBounds {
-        if(i > 0 && snakeList.getCell(i) != null){
+        if(i>-1 && snakeList.getCell(i) != null){
             int mod = (snakeList.getCell(i).getValue())%columns;
             if(mod == 0){
                 mod = snakeList.getCell(i).getValue()-columns;
@@ -205,9 +269,9 @@ public class Table {
             int value = snakeList.getCell(i).getValue()-(mod);
             int val2 = (int)(1+(Math.random()*(value)));
             if(!usedCells.contains(val2)){
-                getCellA(snakeList.get(i)-1).setSnakeLetter((char) character);
-                getCellA(val2-1).setSnakeLetter((char)character);
-                getCellA((snakeList.get(i)-1)).setSnake(getCellA(val2-1));
+                getCellA(snakeList.get(i)).setSnakeLetter((char) character);
+                getCellA(val2).setSnakeLetter((char)character);
+                getCellA((snakeList.get(i))).setSnake(getCellA(val2));
                 usedCells.add(val2);
                 setSnakes(i-1, character+1);
             }else{
@@ -216,7 +280,7 @@ public class Table {
         }
     }
     public void setLadders(int i, int ladderNum) throws IntListIndexOutOfBounds {
-        if(i > 0 && ladderList.getCell(i) != null){
+        if(i > -1 && ladderList.getCell(i) != null){
             int mod = (ladderList.getCell(i).getValue())%columns;
             if(mod == 0){
                 mod = 1;
@@ -227,9 +291,9 @@ public class Table {
             }
             int val2 = random.nextInt((totalCells)-value)+value;
             if(!usedCells.contains(val2)){
-                getCellA(ladderList.get(i)-1).setLadderNum(ladderNum);
-                getCellA(val2-1).setLadderNum(ladderNum);
-                getCellA((ladderList.get(i)-1)).setLader(getCellA(val2-1));
+                getCellA(ladderList.get(i)).setLadderNum(ladderNum);
+                getCellA(val2).setLadderNum(ladderNum);
+                getCellA((ladderList.get(i))).setLader(getCellA(val2));
                 usedCells.add(val2);
                 setLadders(i-1, ladderNum+1);
             }else{
