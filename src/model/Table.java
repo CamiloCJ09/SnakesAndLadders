@@ -120,6 +120,14 @@ public class Table {
         }
     }
 
+    public String showTable(){
+        return showTable(0,5);
+    }
+
+    private String showTable(int actualCell, int count){
+
+    }
+
 
     public Cell getPos(int index){
         if(index == 0){
