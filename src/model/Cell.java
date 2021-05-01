@@ -15,6 +15,8 @@ public class Cell {
     public Cell(int number){
         this.number = number;
         this.participants = "";
+        this.snakeLetter = 0;
+        this.ladderNum = 0;
         this.next = null;
         this.behind = null;
         this.lader = null;
@@ -26,12 +28,16 @@ public class Cell {
             this.number = number;
             this.next = cell;
             this.participants = "";
+            this.snakeLetter = 0;
+            this.ladderNum = 0;
             this.behind = null;
             this.lader = null;
             this.snake = null;
         } else{
             this.number = number;
             this.participants = "";
+            this.snakeLetter = 0;
+            this.ladderNum = 0;
             this.next = null;
             this.behind = cell;
             this.lader = null;
@@ -64,6 +70,10 @@ public class Cell {
             this.lader = null;
             this.snake = optional;
         }
+    }
+
+    public String toString(){
+        return "["+number+"]";
     }
 
     public int getNumber() {
@@ -128,5 +138,13 @@ public class Cell {
 
     public void setParticipants(String participants) {
         this.participants = participants;
+    }
+
+    public int getSnakeNum() {
+        return snakeNum;
+    }
+
+    public void setSnakeNum(int snakeNum) {
+        this.snakeNum = snakeNum;
     }
 }

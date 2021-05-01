@@ -4,9 +4,13 @@ import exceptions.IntListIndexOutOfBounds;
 
 import java.util.Random;
 
+/**
+ * The type Table.
+ */
 public class Table {
 
     private Cell cells;
+    private Tree scores;
     private int rows;
     private int columns;
     private int ladders;
@@ -24,6 +28,16 @@ public class Table {
 
     private Random random;
 
+    /**
+     * Instantiates a new Table.
+     *
+     * @param rows         the rows
+     * @param columns      the columns
+     * @param ladders      the ladders
+     * @param snakes       the snakes
+     * @param participants the participants
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public Table(int rows, int columns, int ladders, int snakes, int participants) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
@@ -44,6 +58,9 @@ public class Table {
         //TODO recursive method to fill icons
     }
 
+    /**
+     * Prueba 4.
+     */
     public void prueba4(){
         for(int i = 0; i < totalCells-1; i+=2){
 
@@ -60,6 +77,16 @@ public class Table {
         }
     }
 
+    /**
+     * Instantiates a new Table.
+     *
+     * @param rows    the rows
+     * @param columns the columns
+     * @param ladders the ladders
+     * @param snakes  the snakes
+     * @param icons   the icons
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public Table(int rows, int columns, int ladders, int snakes, String icons) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
@@ -71,6 +98,14 @@ public class Table {
         listParticipants = createParticipants(participants, icons, 1);
     }
 
+    /**
+     * Create participants participants.
+     *
+     * @param participants the participants
+     * @param icons        the icons
+     * @param position     the position
+     * @return the participants
+     */
     public Participants createParticipants(int participants, String icons, int position){
         if(position == participants){
             return new Participants(icons.charAt(position-1));
@@ -81,6 +116,13 @@ public class Table {
         }
     }
 
+    /**
+     * Create participants participants.
+     *
+     * @param participants the participants
+     * @param position     the position
+     * @return the participants
+     */
     public Participants createParticipants(int participants, int position){
         if(position == participants){
             return new Participants((char)(33+position));
@@ -91,6 +133,12 @@ public class Table {
         }
     }
 
+    /**
+     * Get participant participants.
+     *
+     * @param index the index
+     * @return the participants
+     */
     public Participants getParticipant(int index){
         if(index == 0){
             return listParticipants;
@@ -99,7 +147,14 @@ public class Table {
         }
     }
 
+    /**
+     * Move participant.
+     *
+     * @param participant the participant
+     * @param moves       the moves
+     */
     public void moveParticipant(int participant, int moves){
+        Character c = Character.MIN_VALUE;
         Participants part = getParticipant(participant);
         if(part.getPosition()+moves <= totalCells){
             Cell act = getPos(part.getPosition()-1);
@@ -120,15 +175,73 @@ public class Table {
         }
     }
 
+    /**
+     * Show table string.
+     *
+     * @return the string
+     */
     public String showTable(){
-        return showTable(0,5);
+        String out = "";
+        return showTable(1);
     }
 
-    private String showTable(int actualCell, int count){
+    private String showTable(int row){
+        if(row == rows){
+            if(row%2!=0){
+                String out = showTableLine(((row-1)*columns)+1,row*columns, true);
+                return out;
+            }else{
+                String out = showTableLine(((row-1)*columns)+1,row*columns, false);
+                return out;
+            }
+        }else{
+            if(row%2!=0){
+                String out = showTable(row+1);
+                out += showTableLine(((row-1)*columns)+1,row*columns, true);
+                return out;
+            }else{
+                String out = showTable(row+1);
+                out += showTableLine(((row-1)*columns)+1,row*columns, false);
+                return out;
+            }
+        }
+    }
 
+    private String showTableLine(int from, int to, boolean odd){
+        if(odd){
+            if(from == to){
+                return getCellA(from-1).toString();
+            }else if(from == ((to-columns)+1)){
+                String out = showTableLine(from+1, to, odd);
+                out = getCellA(from-1).toString() + out + "\n";
+                return out;
+            }else{
+                String out = showTableLine(from+1, to, odd);
+                out = getCellA(from-1).toString() + out;
+                return out;
+            }
+        }else{
+            if(from == to){
+                return getCellA(from-1).toString();
+            }else if(from == ((to-columns)+1)){
+                String out = showTableLine(from+1, to, odd);
+                out += getCellA(from-1).toString() + "\n";
+                return out;
+            }else{
+                String out = showTableLine(from+1, to, odd);
+                out += getCellA(from-1).toString();
+                return out;
+            }
+        }
     }
 
 
+    /**
+     * Get pos cell.
+     *
+     * @param index the index
+     * @return the cell
+     */
     public Cell getPos(int index){
         if(index == 0){
             return cells;
@@ -137,6 +250,13 @@ public class Table {
         }
     }
 
+    /**
+     * Fill icons.
+     *
+     * @param number            the number
+     * @param position          the position
+     * @param actualParticipant the actual participant
+     */
     public void fillIcons(int number, int position, Participants actualParticipant){
         if(position == 1){
             icons += actualParticipant.getIcon();
@@ -149,7 +269,12 @@ public class Table {
         }
     }
 
-    //TODO recursive method to create and fill cells
+    /**
+     * Create table.
+     *
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
+//TODO recursive method to create and fill cells
     public void createTable() throws IntListIndexOutOfBounds {
 
         //System.out.println("Cell number"+cells.getNumber());
@@ -164,6 +289,12 @@ public class Table {
         //prueba3();
     }
 
+    /**
+     * Sets snakes.
+     *
+     * @param snakes the snakes
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public void setupSnakes(int snakes) throws IntListIndexOutOfBounds {
         if(snakes == 1){
             int snake = (int)((columns+1)+(Math.random()*((totalCells-columns)-1)));
@@ -190,7 +321,13 @@ public class Table {
         //;
     }
 
-    /*public Cell getCellA(int index, int noCares){
+    /**
+     * Gets cell a.
+     *
+     * @param index the index
+     * @return the cell a
+     */
+/*public Cell getCellA(int index, int noCares){
         return getCellA(index);
     }*/
     public Cell getCellA(int index){
@@ -202,8 +339,15 @@ public class Table {
         }
     }
 
+    /**
+     * Sets snakes.
+     *
+     * @param i         the
+     * @param character the character
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public void setSnakes(int i, int character) throws IntListIndexOutOfBounds {
-        if(i > 0 && snakeList.getCell(i) != null){
+        if(i>-1 && snakeList.getCell(i) != null){
             int mod = (snakeList.getCell(i).getValue())%columns;
             if(mod == 0){
                 mod = snakeList.getCell(i).getValue()-columns;
@@ -211,9 +355,9 @@ public class Table {
             int value = snakeList.getCell(i).getValue()-(mod);
             int val2 = (int)(1+(Math.random()*(value)));
             if(!usedCells.contains(val2)){
-                getCellA(snakeList.get(i)-1).setSnakeLetter((char) character);
-                getCellA(val2-1).setSnakeLetter((char)character);
-                getCellA((snakeList.get(i)-1)).setSnake(getCellA(val2-1));
+                getCellA(snakeList.get(i)).setSnakeLetter((char) character);
+                getCellA(val2).setSnakeLetter((char)character);
+                getCellA((snakeList.get(i))).setSnake(getCellA(val2));
                 usedCells.add(val2);
                 setSnakes(i-1, character+1);
             }else{
@@ -221,8 +365,16 @@ public class Table {
             }
         }
     }
+
+    /**
+     * Sets ladders.
+     *
+     * @param i         the
+     * @param ladderNum the ladder num
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public void setLadders(int i, int ladderNum) throws IntListIndexOutOfBounds {
-        if(i > 0 && ladderList.getCell(i) != null){
+        if(i > -1 && ladderList.getCell(i) != null){
             int mod = (ladderList.getCell(i).getValue())%columns;
             if(mod == 0){
                 mod = 1;
@@ -233,9 +385,9 @@ public class Table {
             }
             int val2 = random.nextInt((totalCells)-value)+value;
             if(!usedCells.contains(val2)){
-                getCellA(ladderList.get(i)-1).setLadderNum(ladderNum);
-                getCellA(val2-1).setLadderNum(ladderNum);
-                getCellA((ladderList.get(i)-1)).setLader(getCellA(val2-1));
+                getCellA(ladderList.get(i)).setLadderNum(ladderNum);
+                getCellA(val2).setLadderNum(ladderNum);
+                getCellA((ladderList.get(i))).setLader(getCellA(val2));
                 usedCells.add(val2);
                 setLadders(i-1, ladderNum+1);
             }else{
@@ -244,6 +396,9 @@ public class Table {
         }
     }
 
+    /**
+     * Prueba 3.
+     */
     public void prueba3(){
         Cell cell = cells;
         while(cell != null){
@@ -265,6 +420,12 @@ public class Table {
         }
     }
 
+    /**
+     * Sets ladders.
+     *
+     * @param ladders the ladders
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public void setupLadders(int ladders) throws IntListIndexOutOfBounds {
         if(ladders == 1){
             int ladder = (1+random.nextInt(totalCells-columns));
@@ -309,6 +470,9 @@ public class Table {
         }
     }
 
+    /**
+     * Prueba 1.
+     */
     public void prueba1(){
         Cell cell = cells;
         while(cell != null){
@@ -318,6 +482,9 @@ public class Table {
 
     }
 
+    /**
+     * Prueba 2.
+     */
     public void prueba2(){
         int counter = totalCells-1;
         while(counter > 0){
@@ -329,10 +496,20 @@ public class Table {
         }
     }
 
+    /**
+     * Gets cells.
+     *
+     * @return the cells
+     */
     public Cell getCells() {
         return cells;
     }
 
+    /**
+     * Sets cells.
+     *
+     * @param cells the cells
+     */
     public void setCells(Cell cells) {
         this.cells = cells;
     }
