@@ -9,7 +9,7 @@ public class Main {
     private static Table table;
 
     public Main() throws IntListIndexOutOfBounds {
-        table = new Table(6,6,2,3,2);
+        table = new Table(5,5,2,3,2);
     }
 
     public static void main(String[] args) throws IntListIndexOutOfBounds {
@@ -23,12 +23,14 @@ public class Main {
         //table.prueba4();
         System.out.println(table.showTable());
         System.out.println("asd");
+        System.out.println(table.showTable());
     }
 
     public String printTable(int rows, int columns){
         int totalCells = table.getRows()*table.getColumns();
         return printTable(columns, totalCells, 1, "", table.getCells());
     }
+
     private String printTable(int columns, int totalCells, int lineBreak, String out, Cell lastCell){
         String ret = "";
         if(lineBreak != columns){
