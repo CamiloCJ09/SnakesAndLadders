@@ -72,6 +72,27 @@ public class Cell {
         }
     }
 
+    public String toString(){
+        if(snakeLetter!=0){
+            return "["+number+(char)snakeLetter+participants+"]";
+        }else if(ladderNum != 0){
+            return "["+number+"("+ladderNum+")"+participants+"]";
+        }else{
+            return "["+number+participants+"]";
+        }
+    }
+
+    public String toString2(){
+        if(snakeLetter!=0){
+            return "["+(char)snakeLetter+participants+"]";
+        }else if(ladderNum != 0){
+            return "["+"("+ladderNum+")"+participants+"]";
+        }else{
+            return "["+participants+"]";
+        }
+    }
+
+
     public int getNumber() {
         return number;
     }

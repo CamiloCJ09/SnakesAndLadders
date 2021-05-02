@@ -9,7 +9,7 @@ public class Main {
     private static Table table;
 
     public Main() throws IntListIndexOutOfBounds {
-        table = new Table(5,5,2,3,2);
+        table = new Table(5,5,1,1,2);
     }
 
     public static void main(String[] args) throws IntListIndexOutOfBounds {
