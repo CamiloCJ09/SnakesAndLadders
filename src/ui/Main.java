@@ -24,6 +24,13 @@ public class Main {
         System.out.println(table.showTable());
         System.out.println("asd");
         System.out.println(table.showTable());
+
+        table.insertScores("#", 25);
+        table.insertScores("%", 26);
+        table.insertScores("&", 32);
+
+        System.out.println(table.printTree());
+
     }
 
     public String printTable(int rows, int columns){

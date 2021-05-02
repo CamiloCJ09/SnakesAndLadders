@@ -146,7 +146,6 @@ public class Table {
             return getParticipant(index-1).getNext();
         }
     }
-
     /**
      * Move participant.
      *
@@ -174,6 +173,46 @@ public class Table {
             }
         }
     }
+
+    public String printTree(){
+        return printTree(scores);
+    }
+    private String printTree(Tree scores){
+
+        if(scores.getLeftChild() == null && scores.getRightChild() == null){
+            return scores.getParticipant() + " " + scores.getScore() + "\n";
+        }else{
+            String sc = "";
+            if(scores.getRightChild() != null){
+                sc += printTree(scores.getRightChild());
+            }
+            if(scores.getLeftChild() != null){
+                sc += printTree(scores.getLeftChild());
+            }
+            sc += scores.getParticipant() + " " + scores.getScore() + "\n";
+            return sc;
+        }
+    }
+
+
+
+    public void insertScores(String participant ,int score){
+        scores = insertRec(scores,participant, score);
+    }
+    private Tree insertRec(Tree scores,String participant, int score){
+        if(scores == null){
+            scores = new Tree(participant, score);
+            return scores;
+        }
+
+        if(score <= scores.getScore()){
+            scores.setLeftChild(insertRec(scores.getLeftChild(), participant, score));
+        }else if(score > scores.getScore()){
+            scores.setRightChild(insertRec(scores.getRightChild(), participant, score));
+        }
+        return scores;
+    }
+
 
     /**
      * Show table string.
