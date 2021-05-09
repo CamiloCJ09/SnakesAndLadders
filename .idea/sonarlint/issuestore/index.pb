@@ -19,3 +19,5 @@ F
 src/model/IntCell.java,7\3\738bc8ed4778922603d9d8665ba821f7566d9012
 K
 src/model/Participants.java,d\4\d431e3ef765516856e908977f22f4610e5be32ed
+C
+src/model/Tree.java,a\3\a3667263d89f7fabed60f4ea29cc52d4cd702ebc

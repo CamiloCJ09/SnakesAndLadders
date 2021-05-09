@@ -4,46 +4,52 @@ import exceptions.IntListIndexOutOfBounds;
 import model.Cell;
 import model.Table;
 
+import java.util.Scanner;
+
 public class Main {
 
-    private static Table table;
+    private Table table;
+    private Scanner sc;
 
     public Main() throws IntListIndexOutOfBounds {
-        table = new Table(5,5,1,1,2);
+        //table = new Table(6,6,2,3,2);
+        sc = new Scanner(System.in);
     }
 
     public static void main(String[] args) throws IntListIndexOutOfBounds {
         Main main = new Main();
-        table.createTable();
-        table.setupSnakes(table.getSnakes());
-        table.setupLadders(table.getColumns());
-        table.setSnakes(table.getSnakeList().getSize()-1, 65);
-        table.setLadders(table.getLadderList().getSize()-1, 1);
-        table.prueba3();
-        //table.prueba4();
-        System.out.println(table.showTable());
-        System.out.println("asd");
-        System.out.println(table.showTable());
 
-        table.insertScores("#", 25);
-        table.insertScores("%", 26);
-        table.insertScores("&", 32);
-
-        System.out.println(table.printTree());
-
+        main.showMenu();
+        int option = Integer.parseInt(main.sc.nextLine());
+        main.executeMenu(option);
     }
 
-    public String printTable(int rows, int columns){
-        int totalCells = table.getRows()*table.getColumns();
-        return printTable(columns, totalCells, 1, "", table.getCells());
+    public void showMenu(){
+        System.out.print("-----MENU-----\n 1.Play\n 2.Scores\n 3.Leave\n");
     }
 
-    private String printTable(int columns, int totalCells, int lineBreak, String out, Cell lastCell){
-        String ret = "";
-        if(lineBreak != columns){
-
+    public void executeMenu(int option) throws IntListIndexOutOfBounds {
+        switch (option){
+            case 1:
+                playOption();
+                break;
+            case 2:
+                //Method
+                break;
+            case 3:
+                //Method
+                break;
         }
-        return ret;
     }
 
+    public void playOption() throws IntListIndexOutOfBounds {
+        String line = sc.nextLine();
+        String[] objects = line.split(" ");
+        if(objects[4].charAt(0) < 58 && objects[4].charAt(0) > 47){
+            this.table = new Table(Integer.parseInt(objects[0]), Integer.parseInt(objects[1]), Integer.parseInt(objects[2]), Integer.parseInt(objects[3]), Integer.parseInt(objects[4]));
+        }else{
+            this.table = new Table(Integer.parseInt(objects[0]), Integer.parseInt(objects[1]), Integer.parseInt(objects[2]), Integer.parseInt(objects[3]), objects[4]);
+        }
+        System.out.println(table.showTable());
+    }
 }

@@ -51,11 +51,11 @@ public class Table {
         this.usedCells = new IntList();
         icons = "";
         random = new Random();
-        //setupSnakes(snakes);
-        //setupLadders(ladders);
-        //snakeList.mergeLists(ladderList);
-
-        //TODO recursive method to fill icons
+        createTable();
+        setupSnakes(snakes);
+        setupLadders(ladders);
+        setSnakes(getSnakeList().getSize()-1, 65);
+        setLadders(getLadderList().getSize()-1, 1);
     }
 
     /**
@@ -96,6 +96,12 @@ public class Table {
         this.totalCells = rows*columns;
         this.participants = icons.length();
         listParticipants = createParticipants(participants, icons, 1);
+        random = new Random();
+        createTable();
+        setupSnakes(snakes);
+        setupLadders(ladders);
+        setSnakes(getSnakeList().getSize()-1, 65);
+        setLadders(getLadderList().getSize()-1, 1);
     }
 
     /**
@@ -392,7 +398,7 @@ public class Table {
                 mod = snakeList.getCell(i).getValue()-columns;
             }
             int value = snakeList.getCell(i).getValue()-(mod);
-            int val2 = (int)(1+(Math.random()*(value)));
+            int val2 = (int)(1+(Math.random()*(value-1)));
             if(!usedCells.contains(val2)){
                 getCellA(snakeList.get(i)).setSnakeLetter((char) character);
                 getCellA(val2).setSnakeLetter((char)character);
