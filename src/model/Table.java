@@ -162,7 +162,8 @@ public class Table {
      * @param participant the participant
      * @param moves       the moves
      */
-    public void moveParticipant(int participant, int moves){
+    public boolean moveParticipant(int participant, int moves){
+        boolean ret = false;
         Character c = Character.MIN_VALUE;
         Participants part = getParticipant(participant);
         if(part.getPosition()+moves <= totalCells){
@@ -185,7 +186,12 @@ public class Table {
                 nxt.setParticipants(nxt.getParticipants()+part.getIcon());
                 part.setPosition(part.getPosition()+moves);
             }
+            if(part.getPosition() == totalCells){
+                ret = true;
+            }
         }
+        part.setMoves(part.getMoves()+1);
+        return ret;
     }
 
     public String printTree(){
@@ -194,7 +200,7 @@ public class Table {
     private String printTree(Tree scores){
 
         if(scores.getLeftChild() == null && scores.getRightChild() == null){
-            return scores.getParticipant() + " " + scores.getScore() + "\n";
+            return scores.getNickname()+" "+scores.getParticipant() + " " + scores.getScore() + "\n";
         }else{
             String sc = "";
             if(scores.getRightChild() != null){
@@ -203,26 +209,26 @@ public class Table {
             if(scores.getLeftChild() != null){
                 sc += printTree(scores.getLeftChild());
             }
-            sc += scores.getParticipant() + " " + scores.getScore() + "\n";
+            sc += scores.getNickname()+" "+scores.getParticipant() + " " + scores.getScore() + "\n";
             return sc;
         }
     }
 
 
 
-    public void insertScores(String participant ,int score){
-        scores = insertRec(scores,participant, score);
+    public void insertScores(Participants part){
+        scores = insertRec(scores,String.valueOf(part.getIcon()),part.getNickname(), (part.getMoves()));
     }
-    private Tree insertRec(Tree scores,String participant, int score){
+    private Tree insertRec(Tree scores,String participant, String nickname, int score){
         if(scores == null){
-            scores = new Tree(participant, score);
+            scores = new Tree(participant,nickname, score);
             return scores;
         }
 
         if(score <= scores.getScore()){
-            scores.setLeftChild(insertRec(scores.getLeftChild(), participant, score));
+            scores.setLeftChild(insertRec(scores.getLeftChild(), participant, nickname, score));
         }else if(score > scores.getScore()){
-            scores.setRightChild(insertRec(scores.getRightChild(), participant, score));
+            scores.setRightChild(insertRec(scores.getRightChild(), participant,nickname, score));
         }
         return scores;
     }

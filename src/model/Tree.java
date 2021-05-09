@@ -3,15 +3,17 @@ package model;
 public class Tree {
 
     private String participant;
+    private String nickname;
     private int score;
 
     private Tree parent;
     private Tree leftChild;
     private Tree rightChild;
 
-    public Tree(String participant, int score){
+    public Tree(String participant, String nickname, int score){
         this.participant = participant;
         this.score = score;
+        this.nickname = nickname;
 
         parent = null;
         leftChild = null;
@@ -25,6 +27,14 @@ public class Tree {
 
         leftChild = null;
         rightChild = null;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getParticipant() {

@@ -5,13 +5,23 @@ public class Participants {
     private char icon;
     private int position;
     private int moves;
+    private String nickname;
     private Participants next;
 
     public Participants(char icon){
         this.icon = icon;
         position = 1;
         moves = 0;
+        nickname = "";
         next = null;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public char getIcon() {

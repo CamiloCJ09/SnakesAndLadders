@@ -1,9 +1,11 @@
 package ui;
 
 import exceptions.IntListIndexOutOfBounds;
-import model.Cell;
 import model.Table;
 
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 public class Main {
@@ -37,7 +39,10 @@ public class Main {
                 playOption();
                 break;
             case 2:
-                //Method
+                System.out.println(table.printTree());
+                showMenu();
+                int opt = Integer.parseInt(sc.nextLine());
+                executeMenu(opt);
                 break;
             case 3:
                 //Method
@@ -59,20 +64,46 @@ public class Main {
         System.out.print("\n" + table.showTable2());
         String text = sc.nextLine();
         turn = 0;
-        runGame(text);
+        runGame(text, false);
     }
 
-    public void runGame(String text) throws IntListIndexOutOfBounds {
+    public void runGame(String text, boolean sim) throws IntListIndexOutOfBounds {
         if(text.equals("")){
-            throwDice();
-            System.out.print("\n" + table.showTable2());
-            String txt = sc.nextLine();
-            runGame(txt);
+            boolean win = throwDice();
+            if(sim){
+                if(!win){
+                    try{
+                        Thread.sleep(2000);
+                        System.out.print("\n" + table.showTable2());
+                        runGame("", true);
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }else{
+                    //TODO: pedir datos del ganador
+                    showMenu();
+                    int option = Integer.parseInt(sc.nextLine());
+                    executeMenu(option);
+                }
+            }else{
+                if(!win){
+                    System.out.print("\n" + table.showTable2());
+                    String txt = sc.nextLine();
+                    runGame(txt, false);
+                }else{
+                    //TODO: pedir datos del ganador
+                    showMenu();
+                    int option = Integer.parseInt(sc.nextLine());
+                    executeMenu(option);
+                }
+            }
         }else if(text.equals("num")){
             System.out.print(table.showTable());
             String txt = sc.nextLine();
-            runGame(txt);
+            runGame(txt, false);
         }else if(text.equals("simul")){
+            runGame("", true);
+
             //TODO Method to simulate
         }else if(text.equals("menu")){
             showMenu();
@@ -80,15 +111,44 @@ public class Main {
             executeMenu(option);
         }
     }
+    public void pressEnter(){
+        Robot rbt;
+        try {
+            rbt = new Robot();
+            rbt.keyPress(KeyEvent.VK_ENTER);
+        }catch(Exception e){
+            System.out.println(".");
+        }
+    }
+    public void releaseEnter(){
+        Robot rbt;
+        try{
+            rbt = new Robot();
+            rbt.keyRelease(KeyEvent.VK_ENTER);
+        }catch(Exception e){
+            System.out.println(".");
+        }
+    }
 
-    public void throwDice(){
+    public boolean throwDice(){
         int run = (int) ((Math.random()*5)+1);
         System.out.println("El jugador: "+table.getParticipant(turn).getIcon() + " ha lanzado el dado y obtuvo el puntaje de "+run);
-        table.moveParticipant(turn, run);
-        if(turn == table.getParticipants()-1){
+        boolean win = table.moveParticipant(turn, run);
+        if(win){
+            System.out.println("El participante "+ table.getParticipant(turn).getIcon()+ " ganó el juego, con "+ table.getParticipant(turn).getMoves()+" movimientos");
+            System.out.println("Ingrese un nombre:");
+            table.getParticipant(turn).setNickname(sc.nextLine());
+            table.insertScores(table.getParticipant(turn));
             turn = 0;
+            return true;
         }else{
-            turn++;
+            if(turn == table.getParticipants()-1){
+                turn = 0;
+            }else{
+                turn++;
+            }
+            return false;
         }
+
     }
 }
