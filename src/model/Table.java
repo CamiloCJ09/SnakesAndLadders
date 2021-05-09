@@ -280,6 +280,10 @@ public class Table {
         }
     }
 
+    public String showTable2(){
+        String out = "";
+        return showTable2(1);
+    }
 
     /**
      * Get pos cell.
