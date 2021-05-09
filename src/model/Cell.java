@@ -74,11 +74,11 @@ public class Cell {
 
     public String toString(){
         if(snakeLetter!=0){
-            return "["+number+(char)snakeLetter+participants+"]";
+            return "["+number+(char)snakeLetter+"]";
         }else if(ladderNum != 0){
-            return "["+number+"("+ladderNum+")"+participants+"]";
+            return "["+number+"("+ladderNum+")"+"]";
         }else{
-            return "["+number+participants+"]";
+            return "["+number+"]";
         }
     }
 

@@ -92,11 +92,14 @@ public class Table {
         this.columns = columns;
         this.ladders = ladders;
         this.snakes = snakes;
-        this.icons = icons;
+        this.icons = "";
         this.totalCells = rows*columns;
         this.participants = icons.length();
         listParticipants = createParticipants(participants, icons, 1);
         random = new Random();
+        this.snakeList = new IntList();
+        this.ladderList = new IntList();
+        this.usedCells = new IntList();
         createTable();
         setupSnakes(snakes);
         setupLadders(ladders);
@@ -131,7 +134,8 @@ public class Table {
      */
     public Participants createParticipants(int participants, int position){
         if(position == participants){
-            return new Participants((char)(33+position));
+            Participants part = new Participants((char)(33+position));
+            return part;
         }else{
             Participants participant = new Participants((char)(33+position));
             participant.setNext(createParticipants(participants, position+1));
@@ -163,7 +167,11 @@ public class Table {
         Participants part = getParticipant(participant);
         if(part.getPosition()+moves <= totalCells){
             Cell act = getPos(part.getPosition()-1);
-            act.setParticipants(act.getParticipants().replaceAll(String.valueOf(part.getIcon()), ""));
+            if(act.getParticipants().equals(String.valueOf(part.getIcon()))){
+                act.setParticipants("");
+            }else{
+                act.setParticipants(act.getParticipants().replaceAll(String.valueOf(part.getIcon()), ""));
+            }
             Cell nxt = getPos(part.getPosition()+moves-1);
             if(nxt.getLader() != null){
                 Cell ladder = nxt.getLader();
@@ -280,6 +288,61 @@ public class Table {
         }
     }
 
+    public String showTable2(){
+        String out = "";
+        return showTable2(1);
+    }
+
+    private String showTable2(int row){
+        if(row == rows){
+            if(row%2!=0){
+                String out = showTableLine2(((row-1)*columns)+1,row*columns, true);
+                return out;
+            }else{
+                String out = showTableLine2(((row-1)*columns)+1,row*columns, false);
+                return out;
+            }
+        }else{
+            if(row%2!=0){
+                String out = showTable2(row+1);
+                out += showTableLine2(((row-1)*columns)+1,row*columns, true);
+                return out;
+            }else{
+                String out = showTable2(row+1);
+                out += showTableLine2(((row-1)*columns)+1,row*columns, false);
+                return out;
+            }
+        }
+    }
+
+    private String showTableLine2(int from, int to, boolean odd){
+        if(odd){
+            if(from == to){
+                return getCellA(from-1).toString2();
+            }else if(from == ((to-columns)+1)){
+                String out = showTableLine2(from+1, to, odd);
+                out = getCellA(from-1).toString2() + out + "\n";
+                return out;
+            }else{
+                String out = showTableLine2(from+1, to, odd);
+                out = getCellA(from-1).toString2() + out;
+                return out;
+            }
+        }else{
+            if(from == to){
+                return getCellA(from-1).toString2();
+            }else if(from == ((to-columns)+1)){
+                String out = showTableLine2(from+1, to, odd);
+                out += getCellA(from-1).toString2() + "\n";
+                return out;
+            }else{
+                String out = showTableLine2(from+1, to, odd);
+                out += getCellA(from-1).toString2();
+                return out;
+            }
+        }
+    }
+
 
     /**
      * Get pos cell.
@@ -305,7 +368,9 @@ public class Table {
     public void fillIcons(int number, int position, Participants actualParticipant){
         if(position == 1){
             icons += actualParticipant.getIcon();
-            fillIcons(number, position+1, actualParticipant);
+            if(number != 1){
+                fillIcons(number, position+1, actualParticipant);
+            }
         } else if(position == number){
             icons += actualParticipant.getNext().getIcon();
         }else{
@@ -322,16 +387,10 @@ public class Table {
 //TODO recursive method to create and fill cells
     public void createTable() throws IntListIndexOutOfBounds {
 
-        //System.out.println("Cell number"+cells.getNumber());
         cells = createTable(totalCells,1);
         setupBehind(totalCells);
         fillIcons(participants, 1, listParticipants);
-        //setupSnakes(snakes);
-        //setupLadders(ladders);
-        //setSnakes(snakeList.getSize()-1);
-        //prueba1();
-        //prueba2();
-        //prueba3();
+        cells.setParticipants(icons);
     }
 
     /**
