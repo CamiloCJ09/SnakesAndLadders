@@ -121,24 +121,6 @@ public class Main {
             executeMenu(option);
         }
     }
-    public void pressEnter(){
-        Robot rbt;
-        try {
-            rbt = new Robot();
-            rbt.keyPress(KeyEvent.VK_ENTER);
-        }catch(Exception e){
-            System.out.println(".");
-        }
-    }
-    public void releaseEnter(){
-        Robot rbt;
-        try{
-            rbt = new Robot();
-            rbt.keyRelease(KeyEvent.VK_ENTER);
-        }catch(Exception e){
-            System.out.println(".");
-        }
-    }
 
     public boolean throwDice(){
         int run = (int) ((Math.random()*5)+1);

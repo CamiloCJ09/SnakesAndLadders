@@ -36,6 +36,7 @@ public class Table {
      * @param ladders      the ladders
      * @param snakes       the snakes
      * @param participants the participants
+     * @param scores       the scores
      * @throws IntListIndexOutOfBounds the int list index out of bounds
      */
     public Table(int rows, int columns, int ladders, int snakes, int participants, Tree scores) throws IntListIndexOutOfBounds {
@@ -86,6 +87,7 @@ public class Table {
      * @param ladders the ladders
      * @param snakes  the snakes
      * @param icons   the icons
+     * @param scores  the scores
      * @throws IntListIndexOutOfBounds the int list index out of bounds
      */
     public Table(int rows, int columns, int ladders, int snakes, String icons, Tree scores) throws IntListIndexOutOfBounds {
@@ -158,11 +160,13 @@ public class Table {
             return getParticipant(index-1).getNext();
         }
     }
+
     /**
-     * Move participant.
+     * Move participant boolean.
      *
      * @param participant the participant
      * @param moves       the moves
+     * @return the boolean
      */
     public boolean moveParticipant(int participant, int moves){
         boolean ret = false;
@@ -196,9 +200,16 @@ public class Table {
         return ret;
     }
 
+    /**
+     * Print tree string.
+     *
+     * @return the string
+     */
     public String printTree(){
         return printTree(scores);
     }
+
+
     private String printTree(Tree scores){
 
         if(scores.getLeftChild() == null && scores.getRightChild() == null){
@@ -217,7 +228,11 @@ public class Table {
     }
 
 
-
+    /**
+     * Insert scores.
+     *
+     * @param part the part
+     */
     public void insertScores(Participants part){
         scores = insertRec(scores,String.valueOf(part.getIcon()),part.getNickname(), (part.getMoves()*(totalCells)));
     }
@@ -296,6 +311,11 @@ public class Table {
         }
     }
 
+    /**
+     * Show table 2 string.
+     *
+     * @return the string
+     */
     public String showTable2(){
         String out = "";
         return showTable2(1);
@@ -439,9 +459,6 @@ public class Table {
      * @param index the index
      * @return the cell a
      */
-/*public Cell getCellA(int index, int noCares){
-        return getCellA(index);
-    }*/
     public Cell getCellA(int index){
         if(index == 0){
             //System.out.println("Aqui toy pri");
@@ -508,29 +525,6 @@ public class Table {
         }
     }
 
-    /**
-     * Prueba 3.
-     */
-    public void prueba3(){
-        Cell cell = cells;
-        while(cell != null){
-            //System.out.println(cell.getNumber());
-            if(cell.getSnake() != null) {
-                System.out.println("Snake");
-                System.out.println("La celda "+ cell.getNumber() +" baja serpiente hasta " + cell.getSnake().getNumber());
-                System.out.println("La celda "+ cell.getSnakeLetter() +" baja serpiente hasta " + cell.getSnake().getSnakeLetter());
-                cell = cell.getNext();
-            }else if(cell.getLader() != null){
-                System.out.println("Ladder");
-                System.out.println("La celda "+ cell.getNumber() +" sube escalera hasta " + cell.getLader().getNumber());
-                System.out.println("La celda "+ cell.getLadderNum() +" sube escaler hasta " + cell.getLader().getLadderNum());
-                cell = cell.getNext();
-            }else{
-                cell = cell.getNext();
-            }
-
-        }
-    }
 
     /**
      * Sets ladders.
@@ -582,31 +576,6 @@ public class Table {
         }
     }
 
-    /**
-     * Prueba 1.
-     */
-    public void prueba1(){
-        Cell cell = cells;
-        while(cell != null){
-            System.out.println("Prueba1");
-            cell = cell.getNext();
-        }
-
-    }
-
-    /**
-     * Prueba 2.
-     */
-    public void prueba2(){
-        int counter = totalCells-1;
-        while(counter > 0){
-            System.out.println(counter);
-            System.out.println(getCellA(counter).getBehind());
-            System.out.println("El anterior a "+ getCellA(counter).getNumber()+" es "+(+getCellA(counter).getBehind().getNumber()));
-
-            counter--;
-        }
-    }
 
     /**
      * Gets cells.
@@ -807,10 +776,20 @@ public class Table {
         this.totalCells = totalCells;
     }
 
+    /**
+     * Gets scores.
+     *
+     * @return the scores
+     */
     public Tree getScores() {
         return scores;
     }
 
+    /**
+     * Sets scores.
+     *
+     * @param scores the scores
+     */
     public void setScores(Tree scores) {
         this.scores = scores;
     }

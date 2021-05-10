@@ -2,18 +2,29 @@ package model;
 
 import exceptions.IntListIndexOutOfBounds;
 
+/**
+ * The type Int list.
+ */
 public class IntList {
 
     private IntCell first;
     private IntCell last;
     private int size;
 
+    /**
+     * Instantiates a new Int list.
+     */
     public IntList(){
         this.first = null;
         this.last = null;
         this.size = 0;
     }
 
+    /**
+     * Add.
+     *
+     * @param value the value
+     */
     public void add(int value){
         if(first == null){
             first = new IntCell(value);
@@ -27,6 +38,13 @@ public class IntList {
         }
     }
 
+    /**
+     * Add.
+     *
+     * @param index the index
+     * @param value the value
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public void add(int index, int value) throws IntListIndexOutOfBounds {
         if(index>=size){
             throw new IntListIndexOutOfBounds();
@@ -45,6 +63,13 @@ public class IntList {
         }
     }
 
+    /**
+     * Get int.
+     *
+     * @param index the index
+     * @return the int
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public int get(int index) throws IntListIndexOutOfBounds {
         if(index>(size-1)){
             throw new IntListIndexOutOfBounds();
@@ -53,6 +78,12 @@ public class IntList {
         }
     }
 
+    /**
+     * Get cell int cell.
+     *
+     * @param index the index
+     * @return the int cell
+     */
     public IntCell getCell(int index){
         if(index == 0){
             return first;
@@ -63,10 +94,22 @@ public class IntList {
         }
     }
 
+    /**
+     * Gets size.
+     *
+     * @return the size
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Contains boolean.
+     *
+     * @param number the number
+     * @return the boolean
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public boolean contains(int number) throws IntListIndexOutOfBounds {
         if(first == null){
             return false;
@@ -93,6 +136,13 @@ public class IntList {
     }
 
 
+    /**
+     * Merge lists int list.
+     *
+     * @param list1 the list 1
+     * @return the int list
+     * @throws IntListIndexOutOfBounds the int list index out of bounds
+     */
     public IntList mergeLists(IntList list1) throws IntListIndexOutOfBounds {
         IntList result = new IntList();
         result.setFirst(first);
@@ -110,22 +160,47 @@ public class IntList {
         return result;
     }
 
+    /**
+     * Gets first.
+     *
+     * @return the first
+     */
     public IntCell getFirst() {
         return first;
     }
 
+    /**
+     * Sets first.
+     *
+     * @param first the first
+     */
     public void setFirst(IntCell first) {
         this.first = first;
     }
 
+    /**
+     * Gets last.
+     *
+     * @return the last
+     */
     public IntCell getLast() {
         return last;
     }
 
+    /**
+     * Sets last.
+     *
+     * @param last the last
+     */
     public void setLast(IntCell last) {
         this.last = last;
     }
 
+    /**
+     * Sets size.
+     *
+     * @param size the size
+     */
     public void setSize(int size) {
         this.size = size;
     }
