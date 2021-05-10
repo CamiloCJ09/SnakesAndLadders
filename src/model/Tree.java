@@ -9,6 +9,13 @@ public class Tree {
     private String nickname;
     private int score;
 
+    private int snakes;
+    private int ladders;
+    private int rows;
+    private int columns;
+    private int numOfPlayers;
+    private String allIcons;
+
     private Tree parent;
     private Tree leftChild;
     private Tree rightChild;
@@ -16,14 +23,27 @@ public class Tree {
     /**
      * Instantiates a new Tree.
      *
-     * @param participant the participant
-     * @param nickname    the nickname
-     * @param score       the score
+     * @param participant  the participant
+     * @param nickname     the nickname
+     * @param score        the score
+     * @param snakes       the snakes
+     * @param ladders      the ladders
+     * @param rows         the rows
+     * @param columns      the columns
+     * @param numOfPlayers the num of players
+     * @param allIcons     the all icons
      */
-    public Tree(String participant, String nickname, int score){
+    public Tree(String participant, String nickname, int score, int snakes, int ladders, int rows, int columns, int numOfPlayers, String allIcons){
         this.participant = participant;
         this.score = score;
         this.nickname = nickname;
+
+        this.snakes = snakes;
+        this.ladders = ladders;
+        this.rows = rows;
+        this.columns = columns;
+        this.numOfPlayers = numOfPlayers;
+        this.allIcons = allIcons;
 
         parent = null;
         leftChild = null;
@@ -33,17 +53,49 @@ public class Tree {
     /**
      * Instantiates a new Tree.
      *
-     * @param participant the participant
-     * @param score       the score
-     * @param parent      the parent
+     * @param participant  the participant
+     * @param score        the score
+     * @param parent       the parent
+     * @param snakes       the snakes
+     * @param ladders      the ladders
+     * @param rows         the rows
+     * @param columns      the columns
+     * @param numOfPlayers the num of players
+     * @param allIcons     the all icons
      */
-    public Tree(String participant, int score, Tree parent){
+    public Tree(String participant, int score, Tree parent, int snakes, int ladders, int rows, int columns, int numOfPlayers, String allIcons){
         this.participant = participant;
         this.score = score;
         this.parent = parent;
 
+        this.snakes = snakes;
+        this.ladders = ladders;
+        this.rows = rows;
+        this.columns = columns;
+        this.numOfPlayers = numOfPlayers;
+        this.allIcons = allIcons;
+
         leftChild = null;
         rightChild = null;
+    }
+
+    /**
+     * P to string string.
+     *
+     * @return the string
+     */
+    public String pToString(){
+        String ret = "";
+        ret =   "-------------------------"+"\n"+
+                "Nicknae: "+nickname+"\n"+
+                "Icono: "+participant+"\n"+
+                "Puntaje: "+score+"\n"+
+                "Dimension del tablero: "+rows +"x"+columns+"\n"+
+                "Serpientes: "+snakes+"\n"+
+                "Escaleras: "+ladders+"\n"+
+                "Numero de jugadores: "+ numOfPlayers+"\n"+
+                "Simbolo de jugadores: "+allIcons+"\n";
+        return ret;
     }
 
     /**

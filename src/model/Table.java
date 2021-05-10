@@ -60,24 +60,6 @@ public class Table {
         setLadders(getLadderList().getSize()-1, 1);
     }
 
-    /**
-     * Prueba 4.
-     */
-    public void prueba4(){
-        for(int i = 0; i < totalCells-1; i+=2){
-
-            moveParticipant(0,i);
-
-            System.out.println("Movimiento "+i);
-
-            int a = 0;
-            Cell prv = cells;
-            while(prv != null){
-                System.out.println("Participants in cell "+prv.getNumber()+": "+prv.getParticipants());
-                prv = prv.getNext();
-            }
-        }
-    }
 
     /**
      * Instantiates a new Table.
@@ -213,7 +195,7 @@ public class Table {
     private String printTree(Tree scores){
 
         if(scores.getLeftChild() == null && scores.getRightChild() == null){
-            return scores.getNickname()+" "+scores.getParticipant() + " " + scores.getScore() + "\n";
+            return scores.pToString();
         }else{
             String sc = "";
             if(scores.getRightChild() != null){
@@ -222,7 +204,7 @@ public class Table {
             if(scores.getLeftChild() != null){
                 sc += printTree(scores.getLeftChild());
             }
-            sc += scores.getNickname()+" "+scores.getParticipant() + " " + scores.getScore() + "\n";
+            sc += scores.pToString();
             return sc;
         }
     }
@@ -238,7 +220,7 @@ public class Table {
     }
     private Tree insertRec(Tree scores,String participant, String nickname, int score){
         if(scores == null){
-            scores = new Tree(participant,nickname, score);
+            scores = new Tree(participant,nickname, score, snakes, ladders, rows, columns, participants, icons);
             return scores;
         }
 
