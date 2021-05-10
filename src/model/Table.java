@@ -38,7 +38,7 @@ public class Table {
      * @param participants the participants
      * @throws IntListIndexOutOfBounds the int list index out of bounds
      */
-    public Table(int rows, int columns, int ladders, int snakes, int participants) throws IntListIndexOutOfBounds {
+    public Table(int rows, int columns, int ladders, int snakes, int participants, Tree scores) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
         this.ladders = ladders;
@@ -49,6 +49,7 @@ public class Table {
         this.snakeList = new IntList();
         this.ladderList = new IntList();
         this.usedCells = new IntList();
+        this.scores = scores;
         icons = "";
         random = new Random();
         createTable();
@@ -87,7 +88,7 @@ public class Table {
      * @param icons   the icons
      * @throws IntListIndexOutOfBounds the int list index out of bounds
      */
-    public Table(int rows, int columns, int ladders, int snakes, String icons) throws IntListIndexOutOfBounds {
+    public Table(int rows, int columns, int ladders, int snakes, String icons, Tree scores) throws IntListIndexOutOfBounds {
         this.rows = rows;
         this.columns = columns;
         this.ladders = ladders;
@@ -97,6 +98,7 @@ public class Table {
         this.participants = icons.length();
         listParticipants = createParticipants(participants, icons, 1);
         random = new Random();
+        this.scores = scores;
         this.snakeList = new IntList();
         this.ladderList = new IntList();
         this.usedCells = new IntList();
@@ -217,7 +219,7 @@ public class Table {
 
 
     public void insertScores(Participants part){
-        scores = insertRec(scores,String.valueOf(part.getIcon()),part.getNickname(), (part.getMoves()));
+        scores = insertRec(scores,String.valueOf(part.getIcon()),part.getNickname(), (part.getMoves()*(totalCells)));
     }
     private Tree insertRec(Tree scores,String participant, String nickname, int score){
         if(scores == null){
@@ -803,5 +805,13 @@ public class Table {
      */
     public void setTotalCells(int totalCells) {
         this.totalCells = totalCells;
+    }
+
+    public Tree getScores() {
+        return scores;
+    }
+
+    public void setScores(Tree scores) {
+        this.scores = scores;
     }
 }
