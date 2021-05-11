@@ -24,7 +24,7 @@ Every time that you move the program will show again the table representing the 
 With the option 2 in the menu the program will show the winners with some information about the game, something like this:  
 <img align="center" src="https://cdn.discordapp.com/attachments/713169506238857217/841482293486682162/unknown.png">  
 
-With the option number 3 the program will finish
+With the option number 3 the program will finish  
 ##How to win  
 To win as a player you need to reach the last cell in the table  
 if you need 3 to win you need to get that 3 to reach the last cell, if you don't, you can't win  
@@ -32,7 +32,7 @@ if you need 3 to win you need to get that 3 to reach the last cell, if you don't
 At the end the program will ask the winner a nickname, something like this:  
 
 <img align="center" src="https://cdn.discordapp.com/attachments/713169506238857217/841476458400448512/unknown.png">  
-
+  
 ##Some useful commands  
 Use all this commands in lowercase to work properly
 * "__simul__" : with this command the program will play by his own, then will let you know the winner and will ask you the winner data
