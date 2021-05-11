@@ -413,23 +413,19 @@ public class Table {
         if(snakes == 1){
             int snake = (int)((columns+1)+(Math.random()*((totalCells-columns)-1)));
             if(usedCells.contains(snake)){
-                System.out.println("papi, si sirvo");
                 setupSnakes(snakes);
                 return;
             }
             usedCells.add(snake);
             snakeList.add(snake);
-            System.out.println("Snake: "+ snake);
         } else{
             int snake = (int)((columns+1)+(Math.random()*((totalCells-columns)-1)));
             if(usedCells.contains(snake)){
-                System.out.println("papi, si sirvo");
                 setupSnakes(snakes);
                 return;
             }
             usedCells.add(snake);
             snakeList.add(snake);
-            System.out.println("Snake: "+ snake);
             setupSnakes(snakes-1);
         }
         //;
@@ -443,7 +439,6 @@ public class Table {
      */
     public Cell getCellA(int index){
         if(index == 0){
-            //System.out.println("Aqui toy pri");
             return cells;
         }else{
             return getCellA(index-1).getNext();
@@ -518,23 +513,19 @@ public class Table {
         if(ladders == 1){
             int ladder = (1+random.nextInt(totalCells-columns));
             if(usedCells.contains(ladder)){
-                System.out.println("Si sirvo pri");
                 setupLadders(ladders);
                 return;
             }
             usedCells.add(ladder);
             ladderList.add(ladder);
-            System.out.println("Ladder: "+ ladder);
         } else{
             int ladder = (1+random.nextInt(totalCells-columns));
             if(usedCells.contains(ladder)){
-                System.out.println("Si sirvo pri");
                 setupLadders(ladders);
                 return;
             }
             usedCells.add(ladder);
             ladderList.add(ladder);
-            System.out.println("Ladder: "+ ladder);
             setupLadders(ladders-1);
         }
     }
@@ -545,7 +536,6 @@ public class Table {
             return cell;
         }else{
             Cell cell = new Cell(actualCell);
-            //System.out.println(cell.getNumber());
             cell.setNext(createTable(totalCells, actualCell+1));
             return cell;
         }

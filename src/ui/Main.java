@@ -2,10 +2,6 @@ package ui;
 
 import exceptions.IntListIndexOutOfBounds;
 import model.Table;
-
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 public class Main {
@@ -55,18 +51,14 @@ public class Main {
         String[] objects = line.split(" ");
         if(table == null){
             if(objects[4].charAt(0) < 58 && objects[4].charAt(0) > 47){
-                System.out.println("El 1 pri");
                 this.table = new Table(Integer.parseInt(objects[0]), Integer.parseInt(objects[1]), Integer.parseInt(objects[2]), Integer.parseInt(objects[3]), Integer.parseInt(objects[4]), null);
             }else{
-                System.out.println("El 2 pri");
                 this.table = new Table(Integer.parseInt(objects[0]), Integer.parseInt(objects[1]), Integer.parseInt(objects[2]), Integer.parseInt(objects[3]), objects[4], null);
             }
         }else{
             if(objects[4].charAt(0) < 58 && objects[4].charAt(0) > 47){
-                System.out.println("El 1 pri");
                 this.table = new Table(Integer.parseInt(objects[0]), Integer.parseInt(objects[1]), Integer.parseInt(objects[2]), Integer.parseInt(objects[3]), Integer.parseInt(objects[4]), table.getScores());
             }else{
-                System.out.println("El 2 pri");
                 this.table = new Table(Integer.parseInt(objects[0]), Integer.parseInt(objects[1]), Integer.parseInt(objects[2]), Integer.parseInt(objects[3]), objects[4], table.getScores());
             }
         }

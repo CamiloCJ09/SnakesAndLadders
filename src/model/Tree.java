@@ -87,7 +87,7 @@ public class Tree {
     public String pToString(){
         String ret = "";
         ret =   "-------------------------"+"\n"+
-                "Nicknae: "+nickname+"\n"+
+                "Nickname: "+nickname+"\n"+
                 "Icono: "+participant+"\n"+
                 "Puntaje: "+score+"\n"+
                 "Dimension del tablero: "+rows +"x"+columns+"\n"+
