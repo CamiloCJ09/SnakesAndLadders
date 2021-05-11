@@ -1,6 +1,6 @@
 # SnakesAndLadders
-Snakes and Ladders is an ancient Indian board game, currently considered a worldwide classic. It is played between two or more people on a numbered board divided into squares, which also has a certain number of snakes and ladders connecting two numbered lockers.
-##Instructions about how to play:
+Snakes and Ladders is an ancient Indian board game, currently considered a worldwide classic. It is played between two or more people on a numbered board divided into squares, which also has a certain number of snakes and ladders connecting two numbered lockers.  
+## Instructions about how to play:
 * Use the menu to start the game  
   The program will show 3 options: 
     
